@@ -59,28 +59,5 @@ class Database {
             });
         });
     }
-
-    /**
-     * Ejecuta un query que devuelve unicamente un true o false
-     * @param sql instruccion
-     * @param params parametros de la instruccion
-     * @returns {Promise<unknown>}
-     */
-    querySingle({sql, params = []}) {
-        return new Promise((resolve, reject) => {
-            if (!sql || !sql.length) {
-                return reject('Invalid Query');
-            }
-            this.getConnectionPool().query(sql, params, function (err, result) {
-                if (err) {
-                    return reject(err);
-                }
-                if (!result || !result[0] || !result[0][0]) {
-                    return reject(new Error('Invalid db response'));
-                }
-                resolve(result[0][0]);
-            });
-        });
-    }
 }
 module.exports = {Database};

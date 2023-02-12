@@ -1,14 +1,16 @@
 import express from "express";
 import morgan from "morgan";
 import config from "./config";
-const mysql = require("mysql")
+const mysql = require("mysql2")
 const app = express();
+const p1Routes = require('./routes/p1.routes')
 
 app.set("port",4010);
 
 // Middlewares
 app.use(morgan("dev"));
 
+app.use("/api",p1Routes.router);
 /**
  * Creamos pool conection para evitar crear muchas conexiones
  * @type {Pool}
