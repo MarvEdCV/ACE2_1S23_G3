@@ -37,3 +37,13 @@ PORT=<PUERTO>
 ```
 
 El puerto normalmente en MYSQL es el ***3306***
+
+## ENDPOINTS DISPONIBLES
+
+```bash
+[GET]
+http://localhost:4010/api/humedad
+http://localhost:4010/api/viento
+http://localhost:4010/api/presion-barometrica
+http://localhost:4010/api/temperatura
+```
