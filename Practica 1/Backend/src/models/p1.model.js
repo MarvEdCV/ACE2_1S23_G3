@@ -25,6 +25,22 @@ class P1Model extends Database{
     getLast(table){
         return this.queryView({sql:`SELECT * FROM ${table} ORDER BY fecha_creacion DESC LIMIT 1`})
     }
+    
+    saveHumedad(humedad_relativa,punto_rocio,humedad_absoluta){
+        return this.queryView({sql:`INSERT INTO humedad (humedad_relativa,punto_rocio,humedad_absoluta) VALUES (${humedad_relativa},${punto_rocio},${humedad_absoluta})`})
+    }
+
+    savePresionBarometrica(presion){
+        return this.queryView({sql:`INSERT INTO presion_barometrica (presion_barometrica) VALUES(${presion})`})
+    }
+
+    saveTemperatura(temperatura){
+        return this.queryView({sql:`INSERT INTO temperatura(temperatura) VALUES(${temperatura})`})
+    }
+
+    saveViento(velocidad,direccion){
+        return this.queryView({sql:`INSERT INTO viento(velocidad,direccion) VALUES(${velocidad},${direccion})`})
+    }
 }
 
 module.exports = {P1Model};
