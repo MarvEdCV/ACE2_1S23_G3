@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/humedad",(req,res) => {
     P1Model.create(req.app)
-        .getLogsHumedad().then(data => {
+        .getLogs('humedad').then(data => {
             res.status(httpCode.OK).json(data);
     }).catch(err => {
         console.log(err);
@@ -16,7 +16,7 @@ router.get("/humedad",(req,res) => {
 
 router.get("/presion-barometrica",(req,res) => {
     P1Model.create(req.app)
-        .getLogsPresionBarometrica().then(data => {
+        .getLogs('presion_barometrica').then(data => {
         res.status(httpCode.OK).json(data);
     }).catch(err => {
         console.log(err);
@@ -26,7 +26,7 @@ router.get("/presion-barometrica",(req,res) => {
 
 router.get("/temperatura",(req,res) => {
     P1Model.create(req.app)
-        .getLogsTemperatura().then(data => {
+        .getLogs('temperatura').then(data => {
         res.status(httpCode.OK).json(data);
     }).catch(err => {
         console.log(err);
@@ -36,7 +36,7 @@ router.get("/temperatura",(req,res) => {
 
 router.get("/viento",(req,res) => {
     P1Model.create(req.app)
-        .getLogsViento().then(data => {
+        .getLogs('viento').then(data => {
         res.status(httpCode.OK).json(data);
     }).catch(err => {
         console.log(err);

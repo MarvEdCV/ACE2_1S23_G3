@@ -9,35 +9,12 @@ class P1Model extends Database{
     }
 
     /**
-     * Retorna todos los registros de humedades obtenido por medio de query
+     * Retorna todos los registros de la tabla indicada obtenido por medio de query
+     * @param table nombre de la tabla de la cual se desea obtener registros
      * @returns {Promise<*>}
      */
-    getLogsHumedad(){
-        return this.queryView({sql:"SELECT * FROM humedad;"})
-    }
-
-    /**
-     * Retorna todos los registros de presiones barometricas obtenido por medio de query
-     * @returns {Promise<*>}
-     */
-    getLogsPresionBarometrica(){
-        return this.queryView({sql:"SELECT * FROM presion_barometrica;"})
-    }
-
-    /**
-     * Retorna todos los registros de temperaturas obtenido por medio de query
-     * @returns {Promise<*>}
-     */
-    getLogsTemperatura(){
-        return this.queryView({sql:"SELECT * FROM temperatura;"})
-    }
-
-    /**
-     * Retorna todos los registros de vientos obtenido por medio de query
-     * @returns {Promise<*>}
-     */
-    getLogsViento(){
-        return this.queryView({sql:"SELECT * FROM viento;"})
+    getLogs(table){
+        return this.queryView({sql:`SELECT * FROM ${table}`})
     }
 
     /**
