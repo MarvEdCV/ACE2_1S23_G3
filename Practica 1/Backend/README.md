@@ -43,7 +43,11 @@ El puerto normalmente en MYSQL es el ***3306***
 ```bash
 [GET]
 http://localhost:4010/api/humedad
+http://localhost:4010/api/ultima-humedad
 http://localhost:4010/api/viento
+http://localhost:4010/api/ultimo-viento
 http://localhost:4010/api/presion-barometrica
+http://localhost:4010/api/ultima-presion-barometrica
 http://localhost:4010/api/temperatura
+http://localhost:4010/api/ultima-temperatura
 ```
