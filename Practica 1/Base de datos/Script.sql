@@ -6,7 +6,8 @@ create table if not exists humedad
         primary key,
     humedad_relativa double                             not null,
     punto_rocio      double                             not null,
-    fecha_creacion   datetime default CURRENT_TIMESTAMP not null
+    fecha_creacion   datetime default CURRENT_TIMESTAMP not null,
+    humedad_absoluta double                             not null
 );
 
 create table if not exists presion_barometrica
@@ -22,7 +23,7 @@ create table if not exists temperatura
     id_temperatura int auto_increment
         primary key,
     temperatura    double                             not null,
-    fecha_creación datetime default CURRENT_TIMESTAMP not null
+    fecha_creacion datetime default CURRENT_TIMESTAMP not null
 );
 
 create table if not exists viento
@@ -33,3 +34,4 @@ create table if not exists viento
     direccion      double                             not null,
     fecha_creacion datetime default CURRENT_TIMESTAMP not null
 );
+
