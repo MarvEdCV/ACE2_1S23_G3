@@ -39,6 +39,15 @@ class P1Model extends Database{
     getLogsViento(){
         return this.queryView({sql:"SELECT * FROM viento;"})
     }
+
+    /**
+     * Retorna el ultimo registro de la tabla especificada por medio de query
+     * @param table nombre de la tabla de la cual se desea obtener el ultimo registro
+     * @returns {Promise<*>}
+     */
+    getLast(table){
+        return this.queryView({sql:`SELECT * FROM ${table} ORDER BY fecha_creacion DESC LIMIT 1`})
+    }
 }
 
 module.exports = {P1Model};
