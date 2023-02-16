@@ -37,15 +37,17 @@ const save = (str) =>{
 }
 const dataFromPort = () => {
     // ESTAS 5 LINEAS DE CODIGO UNICAMENTE SON PARA EJEMPLIFICAR SU FUNCIONAMIENTO (Y PROBARLO TAMBIEN)
+    /*
     const dataTest = 'humedad,100.25,50.0,150.25\npresion_barometrica,150\ntemperatura,50\nviento,100,150';
     const arregloData = dataTest.split('\n');
     arregloData.forEach(function (str){
         save(str);
     });
+    */
     // EL CODIGO DE ABAJO ES EL REAL A UTILIZAR
     //SE DEBE UTILIZAR LA VARIABLE str QUE SE OBTIENE en la linea 61 para enviarlo a la funcion save!!
 
-    /*
+    
     const port = new SerialPort({
         path: 'COM3',
         baudRate: 9600
@@ -61,11 +63,12 @@ const dataFromPort = () => {
         var enc = new TextDecoder();
         var str = enc.decode(data);
         console.log(str);
+        save(str);
     });
 
     parser.on('error', function (err) {
        console.log(err);
-    });*/
+    });
 
 };
 const main = ()=>{
