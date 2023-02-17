@@ -18,11 +18,22 @@ function setup() {
   CYAN   = color(0,255,255);
   ORANGE = color(255,153,51);
   
-  setInterval(getTemperatureFromDB,3000);
+  background(220);
+  drawGrid();
+  termometro();
+  humedadRelativa();
+  humedadAbsoluta();
+
+  setInterval(reloadEverything,3000);
   
 }
 
 function draw() {
+  
+}
+
+function reloadEverything(){
+  getTemperatureFromDB();
   background(220);
   drawGrid();
   termometro();
@@ -71,6 +82,7 @@ function humedadAbsoluta(){
   // BUTTON
   button = createButton('Ver grafica');
   button.position( (XPos + ancho/4), (YPos + altura +40));
+  button.mousePressed( ()=>{window.location = "./graficas/humedad/absoluta/humedadAbsoluta.html"});
 }
 
 
@@ -99,7 +111,7 @@ function humedadRelativa(){
   // BUTTON
   button = createButton('Ver grafica');
   button.position(circuloExterno.XPos -40, circuloExterno.YPos + 145);
-  
+  button.mousePressed( ()=>{window.location = "./graficas/humedad/relativa/humedadRelativa.html"});
 }
 
 let GlobalTemperature = 0;
