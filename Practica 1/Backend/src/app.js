@@ -14,6 +14,7 @@ app.set("port",4010);
 app.use(morgan("dev"));
 
 app.use("/api",p1Routes.router);
+
 /**
  * Creamos pool conection para evitar crear muchas conexiones
  * @type {Pool}

@@ -64,7 +64,7 @@ void loop() {
   Serial.println("presion_barometrica,"+String(presion*0.75));
 
   //Viento
-  Serial.println("viento,"String(velocity)+","+String(grados));
+  Serial.println("viento,"+String(velocity)+","+String(grados));
   
   delay(5000);
  
