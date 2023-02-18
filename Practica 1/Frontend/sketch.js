@@ -198,7 +198,7 @@ function direccion(){
 
 var GLOBAL_PRESIONBAROMETRICA = 0;
 function presionBarometrica(){
-
+  let altura = 260, ancho = 200;
   let XPos = (2*width/3+(width/3-ancho)/2), YPos = 500;
   
   strokeWeight(3);
