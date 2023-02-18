@@ -62,7 +62,6 @@ const dataFromPort = () => {
     parser.on('data', function (data) {
         var enc = new TextDecoder();
         var str = enc.decode(data);
-        console.log(str);
         save(str);
     });
 
