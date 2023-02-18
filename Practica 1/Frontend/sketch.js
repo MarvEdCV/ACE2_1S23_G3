@@ -23,6 +23,9 @@ function setup() {
   termometro();
   humedadRelativa();
   humedadAbsoluta();
+  velocidad();
+  direccion();
+  presionBarometrica();
 
   setInterval(reloadEverything,3000);
   
@@ -39,6 +42,9 @@ function reloadEverything(){
   termometro();
   humedadRelativa();
   humedadAbsoluta();
+  velocidad();
+  direccion();
+  presionBarometrica();
 }
 
 function drawGrid(){
@@ -146,6 +152,100 @@ function termometro(){
   button.mousePressed( ()=>{window.location = "./graficas/temperatura/temperatura.html"});
 }
 
+var GLOBAL_DIRECCION = 0;
+function direccion(){
+  
+  const diametroMinimo = 150;
+  let circuloExterno = {XPos: (width/3 +width/6) , YPos: 600, diametroCirculo: Math.abs(0) + diametroMinimo};
+
+  strokeWeight(3);
+  stroke(0,0,0);
+  fill(185, 170, 166  );
+  circle(circuloExterno.XPos, circuloExterno.YPos, circuloExterno.diametroCirculo);
+
+  
+  if(GLOBAL_DIRECCION==0){
+     line(circuloExterno.XPos, circuloExterno.YPos, circuloExterno.XPos, 525);
+     }else if (GLOBAL_DIRECCION==90){
+               line(circuloExterno.XPos, circuloExterno.YPos, circuloExterno.YPos-10, 600);
+     }else if (GLOBAL_DIRECCION==180){
+               line(circuloExterno.XPos, circuloExterno.YPos, circuloExterno.XPos, 675);
+               }
+     else if (GLOBAL_DIRECCION==270){
+               line(circuloExterno.XPos, circuloExterno.YPos, 445,circuloExterno.YPos );
+     }
+
+   ellipse(circuloExterno.XPos, circuloExterno.YPos,2, 2);
+  
+  text("N", circuloExterno.XPos - 5, circuloExterno.YPos-210 + 125);
+  text("S", circuloExterno.XPos - 5, circuloExterno.YPos-30 + 125);
+  text("E", circuloExterno.XPos + 80, circuloExterno.YPos-120 + 125);
+  text("0", circuloExterno.XPos - 95, circuloExterno.YPos-120 + 125);
+  
+  
+
+  textSize(20)
+  noStroke();
+  fill(0);
+  text(GLOBAL_DIRECCION+ "°", circuloExterno.XPos - 10, circuloExterno.YPos + 125);
+
+  text("DIRECCION", width/3 +110, 430);
+  // BUTTON
+  button = createButton('Ver grafica');
+  button.position(circuloExterno.XPos -40, circuloExterno.YPos + 145);
+  button.mousePressed( ()=>{window.location = "./graficas/direccion/direccionViento.html"});
+}
+
+var GLOBAL_PRESIONBAROMETRICA = 0;
+function presionBarometrica(){
+
+  let XPos = (2*width/3+(width/3-ancho)/2), YPos = 500;
+  
+  strokeWeight(3);
+  stroke(0,0,0);
+  fill(147, 198, 200 );
+  // rectangulo que simula el aire
+  triangle(XPos+100, YPos, XPos, YPos+200, XPos+200, YPos+200);
+
+  // texto
+  textSize(20)
+  noStroke();
+  fill(0);
+  text(GLOBAL_PRESIONBAROMETRICA + " mmHg", XPos + ancho/3, (YPos+130 ));
+
+  text("PRESION BAROMETRICA", 2*width/3 +60, 430);
+  // BUTTON
+  button = createButton('Ver grafica');
+  button.position( (XPos + ancho/4), (YPos +245));
+  button.mousePressed( ()=>{window.location = "./graficas/presion/presionBarometrica.html"});
+}
+
+
+let GLOBAL_VELOCIDAD = 0;
+function velocidad(){
+
+  strokeWeight(3);
+  let marco = {x:45, y:570, ancho:200, largo:20};
+
+  strokeWeight(3);
+  stroke(0,0,0);
+  fill(240, 85, 52 );
+  // Marco 
+  rect(marco.x, marco.y, marco.ancho, 25); 
+  triangle(marco.x+marco.ancho, marco.y-30, marco.x+marco.ancho, marco.y+52, marco.x+marco.ancho+40, marco.y+12);
+
+  textSize(20)
+  noStroke();
+  fill(0);
+  text(GLOBAL_VELOCIDAD + " Km/h", marco.x +85 , (marco.y + marco.largo + 135) );
+  text("VELOCIDAD", 100, 430);
+  // boton
+  button = createButton('Ver grafica');
+  button.position(marco.x+80 , (marco.y + marco.largo + 155) );
+  button.mousePressed( ()=>{window.location = "./graficas/velocidad/velocidadViento.html"});
+}
+
+
 function getMercuryColorAndPosition(valorTemperatura, yPosOfAbsoluteCero, termometroHeight){
 
   if (valorTemperatura>40)
@@ -168,6 +268,8 @@ function getTemperatureFromDB(){
 
   getUltimaTemperatura('http://localhost:4010/api/ultima-temperatura');
   getUltimaHumedad('http://localhost:4010/api/ultima-humedad');
+  getUltimaDireccion('http://localhost:4010/api/ultimo-viento');
+  getUltimaPresion('http://localhost:4010/api/ultima-presion-barometrica');
 
 } 
 
@@ -197,6 +299,34 @@ function getUltimaHumedad(url){
       console.log(err);
     })
 }
+
+function getUltimaDireccion(url){
+
+  axios.get(url, {responseType: 'json'}).then(function(res) {
+      if(res.status==200) {
+        console.log(res.data);
+        GLOBAL_DIRECCION = res.data[0].direccion;
+        GLOBAL_VELOCIDAD = res.data[0].velocidad;
+      }
+      //console.log(res);
+    }).catch(function(err) {
+      console.log(err);
+    })
+}
+
+function getUltimaPresion(url){
+
+  axios.get(url, {responseType: 'json'}).then(function(res) {
+      if(res.status==200) {
+        console.log(res.data);
+        GLOBAL_PRESIONBAROMETRICA = res.data[0].presion_barometrica;
+      }
+      //console.log(res);
+    }).catch(function(err) {
+      console.log(err);
+    })
+}
+
 
 
 
