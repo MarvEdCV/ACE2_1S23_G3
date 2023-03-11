@@ -3,7 +3,7 @@ import morgan from "morgan";
 import config from "./config";
 const mysql = require("mysql2")
 const app = express();
-const p1Routes = require('./routes/p1.routes')
+const p1Routes = require('./routes/service.routes')
 
 const cors = require("cors");
 app.use(cors());
