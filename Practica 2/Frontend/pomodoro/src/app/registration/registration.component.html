@@ -1,0 +1,32 @@
+
+<div class="container">
+    <div class="row">
+        <h1>Bienvenido a su Pomodoro</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="imgContainer">
+            <img src="/assets/icons/icon-72x72.png" alt="Avatar" class="avatar">
+        </div>
+        
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <label><b>Username</b></label>
+            <br>
+            <input type="text" placeholder="Enter your Username"required [(ngModel)]="USERNAME">
+        </div>     
+    </div>
+    <div class="row" style="padding-top: 2px;">
+        <div class="col text-center">
+            <button style=" width: 35%;" type="button" class="btn btn-success" (click)="ingresarUsuario()"> Ingresar</button>   
+        </div>   
+    </div>
+    <div class="mensajes">
+        <div class="alert alert-danger" role="alert" [hidden]="missingUsername">             
+            Debe ingresar un nombre de usuario nuevo o previamente registrado
+        </div>
+    </div>
+
+</div>
+
