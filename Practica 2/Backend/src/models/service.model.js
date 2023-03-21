@@ -9,6 +9,10 @@ const TIPO_POMODORO = 1;
 const TIPO_DESCANSO = 2;
 const TIEMPO_MINIMO = 1;
 const TIEMPO_MAXIMO = 45;
+const PENALIZACION_POR_PARARSE = 1;
+const PENALIZACION_POR_SENTARSE = 2;
+const CUMPLIMIENTO_POR_SENTARSE = 3;
+const CUMPLIMIENTO_POR_PARARSE = 4;
 
 /**
  * Clase que extiende de la configuración de la base de datos
@@ -76,7 +80,7 @@ class ServiceModel extends Database {
         }
     }
 
-    getActiveUser(){
+    getActiveUser() {
         return this.queryView({sql: `SELECT * FROM usuario WHERE es_activo=1`})
     }
 
@@ -85,7 +89,7 @@ class ServiceModel extends Database {
             return {"cambio_usuario_activo": false, "mensaje": "El usuario no existe"}
         }
         const activeUser = await this.getActiveUser();
-        if(activeUser[0].usuario_id == userId){
+        if (activeUser[0].usuario_id == userId) {
             return {
                 "cambio_usuario_activo": false,
                 "mensaje": "No puedes activar al usuario que ya se encuentra activo"
@@ -94,7 +98,7 @@ class ServiceModel extends Database {
         const lastPomodoro = await this.lastPomodoro();
         const lastPomodoroId = lastPomodoro[0].pomodoro_id;
         const lastCyclePomodoro = await this.lastCyclePomodoro(lastPomodoroId);
-        if(lastCyclePomodoro[0].numero_cilco !== CUARTO_CICLO){
+        if (lastCyclePomodoro[0].numero_cilco !== CUARTO_CICLO) {
             return {
                 "cambio_usuario_activo": false,
                 "mensaje": "No puedes activar a un usuario distinto sin antes terminar los 4 ciclos del pomodoro actual"
@@ -143,20 +147,20 @@ class ServiceModel extends Database {
         return this.queryView({sql: `INSERT INTO ciclo(tiempo,tipo_ciclo_id,pomodoro_id,numero_ciclo) VALUES(${time},${typeId},${pomodoroId},${cycleNumber})`})
     }
 
-    lastPomodoro(){
-        return this.queryView({sql:`SELECT * FROM pomodoro p JOIN usuario u ON p.usuario_id = u.usuario_id WHERE u.es_activo=1 ORDER BY p.fecha_creacion DESC LIMIT 1`})
+    lastPomodoro() {
+        return this.queryView({sql: `SELECT * FROM pomodoro p JOIN usuario u ON p.usuario_id = u.usuario_id WHERE u.es_activo=1 ORDER BY p.fecha_creacion DESC LIMIT 1`})
     }
 
-    lastCycle(pomodoroId){
-        return this.queryView({sql:`SELECT * FROM ciclo WHERE pomodoro_id = ${pomodoroId} ORDER BY fecha_creacion DESC LIMIT 1`})
+    lastCycle(pomodoroId) {
+        return this.queryView({sql: `SELECT * FROM ciclo WHERE pomodoro_id = ${pomodoroId} ORDER BY fecha_creacion DESC LIMIT 1`})
     }
 
-    lastCyclePomodoro(pomodoroId){
-        return this.queryView({sql:`SELECT * FROM ciclo WHERE pomodoro_id = ${pomodoroId} AND tipo_ciclo_id=1 ORDER BY fecha_creacion DESC LIMIT 1`})
+    lastCyclePomodoro(pomodoroId) {
+        return this.queryView({sql: `SELECT * FROM ciclo WHERE pomodoro_id = ${pomodoroId} AND tipo_ciclo_id=1 ORDER BY fecha_creacion DESC LIMIT 1`})
     }
 
-    lastCycleDescanso(pomodoroId){
-        return this.queryView({sql:`SELECT * FROM ciclo WHERE pomodoro_id = ${pomodoroId} AND tipo_ciclo_id=2 ORDER BY fecha_creacion DESC LIMIT 1`})
+    lastCycleDescanso(pomodoroId) {
+        return this.queryView({sql: `SELECT * FROM ciclo WHERE pomodoro_id = ${pomodoroId} AND tipo_ciclo_id=2 ORDER BY fecha_creacion DESC LIMIT 1`})
     }
 
     async newPomodoro(time, cycleNumber, type) {
@@ -207,7 +211,7 @@ class ServiceModel extends Database {
             };
         }
         // Si alguna error en los parametros salta se responde sin crear ningun ciclo
-        if(response != null){
+        if (response != null) {
             return response;
         }
 
@@ -215,7 +219,7 @@ class ServiceModel extends Database {
             //Si es el primer ciclo se crea el nuevo pomodoro
             const newPomodoro = await this.savePomodoro();
             cycle = await this.saveCycle(time, type, newPomodoro.insertId, cycleNumber);
-        }else{
+        } else {
 
             // Si es segundo, tercer o cuarto ciclo se obtiene el ultimo pomodoro del usuario
             const lastPomodoro = await this.lastPomodoro();
@@ -226,29 +230,29 @@ class ServiceModel extends Database {
             const lastCyclePomodoro = await this.lastCyclePomodoro(lastPomodoroId);
             const lastCycleDescanso = await this.lastCycleDescanso(lastPomodoroId);
             const lastCycleType = lastCycle[0].tipo_ciclo_id;
-            if(lastCycle[0].tiempo !== time){
+            if (lastCycle[0].tiempo !== time) {
                 return {
                     "creación_nuevo_ciclo": false,
                     "mensaje": `No puedes cambiar el tiempo transcurrido en cada actividad entre ciclos!! Tiempo de ciclo anterior -> ${lastCycle[0].tiempo} Tiempo de ciclo enviado -> ${time}`
                 };
             }
 
-            if(lastCycleType === type){
+            if (lastCycleType === type) {
                 return {
                     "creación_nuevo_ciclo": false,
                     "mensaje": `No puedes agregar un ciclo del mismo tipo al anterior a menos que sea ciclo inicial!! Tipo ciclo anterior -> ${lastCycleType} Tpo ciclo enviado -> ${type}`
                 };
             }
-            if(type === TIPO_POMODORO){
-                if(cycleNumber !== (lastCyclePomodoro[0].numero_ciclo + 1)){
+            if (type === TIPO_POMODORO) {
+                if (cycleNumber !== (lastCyclePomodoro[0].numero_ciclo + 1)) {
                     return {
                         "creación_nuevo_ciclo": false,
                         "mensaje": `El numero del ciclo de tipo ACTIVIDAD tiene que ser una unidad mayor a el ciclo anterior!!! Numero anterior -> ${lastCyclePomodoro[0].numero_ciclo} Numero actual -> ${cycleNumber}`
                     };
                 }
             }
-            if(type === TIPO_DESCANSO && cycleNumber !== PRIMER_CICLO){
-                if(cycleNumber !== (lastCycleDescanso[0].numero_ciclo + 1)){
+            if (type === TIPO_DESCANSO && cycleNumber !== PRIMER_CICLO) {
+                if (cycleNumber !== (lastCycleDescanso[0].numero_ciclo + 1)) {
                     return {
                         "creación_nuevo_ciclo": false,
                         "mensaje": `El numero del ciclo de tipo DESCANSO tiene que ser una unidad mayor a el ciclo anterior!!! Numero anterior -> ${lastCycleDescanso[0].numero_ciclo} Numero actual -> ${cycleNumber}`
@@ -260,6 +264,94 @@ class ServiceModel extends Database {
         const newCycleId = cycle.insertId;
         return this.queryView({sql: `SELECT * FROM ciclo WHERE ciclo_id = ${newCycleId}`})
 
+    }
+
+    async validateCycle(cycleNumber) {
+        // Si es segundo, tercer o cuarto ciclo se obtiene el ultimo pomodoro del usuario
+        const lastPomodoro = await this.lastPomodoro();
+        const lastPomodoroId = lastPomodoro[0].pomodoro_id;
+        //Obtenemos el utlimo ciclo del usuario en su ultimo pomodoro
+        const lastCycle = await this.lastCycle(lastPomodoroId);
+
+        if (cycleNumber > 4 || cycleNumber < 1) {
+            return {
+                "creación_nueva_penalizacion": false,
+                "mensaje": "El valor del numero de ciclo no existe, los valores son 1,2,3 o 4"
+            };
+        }
+        if (lastCycle[0].numero_ciclo !== cycleNumber) {
+            return {
+                "creación_nueva_penalizacion": false,
+                "mensaje": `El valor del numero de ciclo enviado a la penalización debe ser exactamente igual que el ultimo ciclo creado ultimo ciclo creado -> ${lastCycle[0].numero_ciclo}, ciclo enviado -> ${cycleNumber}`
+            };
+        }
+        return true;
+    }
+
+    async validateType(type) {
+        // Si es segundo, tercer o cuarto ciclo se obtiene el ultimo pomodoro del usuario
+        const lastPomodoro = await this.lastPomodoro();
+        const lastPomodoroId = lastPomodoro[0].pomodoro_id;
+        //Obtenemos el utlimo ciclo del usuario en su ultimo pomodoro
+        const lastCycle = await this.lastCycle(lastPomodoroId);
+        if (type < PENALIZACION_POR_PARARSE || type > PENALIZACION_POR_SENTARSE) {
+            return {
+                "creación_nueva_penalizacion": false,
+                "mensaje": "El valor del numero de tipo de penalizacion no existe, los valores son 1 -> Esta parado cuando debería estar sentado, 2 -> Esta sentado cuando debería estar parado"
+            };
+        }
+        if (lastCycle[0].tipo_ciclo_id === TIPO_POMODORO && type === PENALIZACION_POR_SENTARSE) {
+            return {
+                "creación_nueva_penalizacion": false,
+                "mensaje": `No puedes penalizar a un ciclo de actividad por sentarse, el último ciclo registrado es de tipo pomodoro, y estas intentando penalizarlo por sentarse, recuerda 1 -> Esta parado cuando debería estar sentado, 2 -> Esta sentado cuando debería estar parado`
+            }
+        }
+        if (lastCycle[0].tipo_ciclo_id === TIPO_DESCANSO && type === PENALIZACION_POR_PARARSE) {
+            return {
+                "creación_nueva_penalizacion": false,
+                "mensaje": `No puedes penalizar a un ciclo de descanso por pararse, el último ciclo registrado es de tipo descanso, y estas intentando penalizarlo por pararse, recuerda 1 -> Esta parado cuando debería estar sentado, 2 -> Esta sentado cuando debería estar parado`
+            }
+        }
+        return true;
+    }
+
+    savePenalty(time,type,pomodoroId){
+        return this.queryView({
+            sql: `INSERT INTO penalizacion (tiempo,tipo_penalizacion_id,pomodoro_id) VALUES(${time},${type},${pomodoroId});`
+        })
+    }
+
+
+
+    async penalty(typePenalty, time, cycleNumber) {
+        // Si es segundo, tercer o cuarto ciclo se obtiene el ultimo pomodoro del usuario
+        const lastPomodoro = await this.lastPomodoro();
+        const lastPomodoroId = lastPomodoro[0].pomodoro_id;
+        //Obtenemos el utlimo ciclo del usuario en su ultimo pomodoro
+        const lastCycle = await this.lastCycle(lastPomodoroId);
+
+
+        const isValidCycle = await this.validateCycle(cycleNumber);
+        if (isValidCycle !== true) {
+            return isValidCycle;
+        }
+        const isValidType = await this.validateType(typePenalty);
+        if (isValidType !== true) {
+            return isValidType;
+        }
+
+        const newPenalty = await this.savePenalty(time,typePenalty,lastPomodoroId);
+
+        //GUARDAMOS CUMPLIMEINTO
+        //CALCULAMOS EL TIEMPO
+        const tiempo_cumplimiento = lastCycle[0].tiempo - time;
+        if(typePenalty === PENALIZACION_POR_PARARSE){
+            await this.savePenalty(tiempo_cumplimiento,CUMPLIMIENTO_POR_SENTARSE,lastPomodoroId);
+        }else if( typePenalty === PENALIZACION_POR_SENTARSE){
+            await this.savePenalty(tiempo_cumplimiento,CUMPLIMIENTO_POR_PARARSE,lastPomodoroId);
+        }
+
+        return this.queryView({sql: `SELECT * FROM penalizacion WHERE penalizacion_id = ${newPenalty.insertId}`})
     }
 }
 
