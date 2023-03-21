@@ -76,9 +76,29 @@ class ServiceModel extends Database {
         }
     }
 
+    getActiveUser(){
+        return this.queryView({sql: `SELECT * FROM usuario WHERE es_activo=1`})
+    }
+
     async activateUser(userId) {
         if (!await this.verifyExistUser(userId)) {
             return {"cambio_usuario_activo": false, "mensaje": "El usuario no existe"}
+        }
+        const activeUser = await this.getActiveUser();
+        if(activeUser[0].usuario_id == userId){
+            return {
+                "cambio_usuario_activo": false,
+                "mensaje": "No puedes activar al usuario que ya se encuentra activo"
+            }
+        }
+        const lastPomodoro = await this.lastPomodoro();
+        const lastPomodoroId = lastPomodoro[0].pomodoro_id;
+        const lastCyclePomodoro = await this.lastCyclePomodoro(lastPomodoroId);
+        if(lastCyclePomodoro[0].numero_cilco !== CUARTO_CICLO){
+            return {
+                "cambio_usuario_activo": false,
+                "mensaje": "No puedes activar a un usuario distinto sin antes terminar los 4 ciclos del pomodoro actual"
+            }
         }
         const desactivateAll = await this.desactivateAllUsers();
         if (desactivateAll.changedRows <= 0) {
