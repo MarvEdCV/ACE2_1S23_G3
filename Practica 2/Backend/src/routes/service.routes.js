@@ -44,31 +44,31 @@ router.post("/pomodoro", (req, res) => {
     })
 })
 
-    router.post("/usuarios", (req, res) => {
-        ServiceModel.create(req.app)
-            .newUser(req.body.nombre, req.body.tiempo_pomodoro, req.body.tiempo_descanso)
-            .then(data => {
+router.post("/usuarios", (req, res) => {
+    ServiceModel.create(req.app)
+        .newUser(req.body.nombre, req.body.tiempo_pomodoro, req.body.tiempo_descanso)
+        .then(data => {
+            res.status(httpCode.OK).json(data)
+        }).catch(err => {
+        console.log(err);
+        res.status(httpCode.INTERNAL_SERVER_ERROR).json(err);
+    })
+})
+
+router.post("/activar-usuario/:id", (req, res) => {
+    ServiceModel.create(req.app)
+        .activateUser(req.params.id)
+        .then(data => {
+            if (data.cambio_usuario_activo) {
                 res.status(httpCode.OK).json(data)
-            }).catch(err => {
-            console.log(err);
-            res.status(httpCode.INTERNAL_SERVER_ERROR).json(err);
-        })
+            } else {
+                res.status(httpCode.NOT_FOUND).json(data)
+            }
+        }).catch(err => {
+        console.log(err)
+        res.status(httpCode.INTERNAL_SERVER_ERROR).json(err);
     })
-
-    router.post("/activar-usuario/:id", (req, res) => {
-        ServiceModel.create(req.app)
-            .activateUser(req.params.id)
-            .then(data => {
-                if (data.cambio_usuario_activo) {
-                    res.status(httpCode.OK).json(data)
-                } else {
-                    res.status(httpCode.NOT_FOUND).json(data)
-                }
-            }).catch(err => {
-            console.log(err)
-            res.status(httpCode.INTERNAL_SERVER_ERROR).json(err);
-        })
-    })
+})
 
 
-    module.exports = {router}
+module.exports = {router}
