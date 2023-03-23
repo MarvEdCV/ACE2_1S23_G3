@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { RegistrationService } from '../services/registrationService.service';
 
 @Component({
   selector: 'app-registration',
@@ -7,15 +9,25 @@ import { Component } from '@angular/core';
 })
 export class RegistrationComponent {
 
-  missingUsername:boolean = true;
+  constructor(private router:Router, private registrationService:RegistrationService){
+
+  }
+
+  hideUsernameError:boolean = true;
   USERNAME:string = "";
 
   ingresarUsuario():void {
     
     if(this.USERNAME.length === 0){ 
-      this.missingUsername = !this.missingUsername;
+      this.hideUsernameError = false;
       return; 
     }
-    window.alert("tu nombre es:" + this.USERNAME);
+    this.registrationService.setUsername(this.USERNAME);
+    this.router.navigate(["pomodoro-menu"]);
+    
   } 
+
+  typingUsername():void{
+    this.hideUsernameError = true;
+  }
 }

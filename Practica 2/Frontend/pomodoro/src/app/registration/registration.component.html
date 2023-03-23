@@ -14,7 +14,8 @@
         <div class="col-4">
             <label><b>Username</b></label>
             <br>
-            <input type="text" placeholder="Enter your Username"required [(ngModel)]="USERNAME">
+            <input type="text" placeholder="Enter your Username"required  [(ngModel)]="USERNAME"
+            (keyup)="typingUsername()">
         </div>     
     </div>
     <div class="row" style="padding-top: 2px;">
@@ -23,10 +24,9 @@
         </div>   
     </div>
     <div class="mensajes">
-        <div class="alert alert-danger" role="alert" [hidden]="missingUsername">             
+        <div class="alert alert-danger" role="alert" [hidden]="hideUsernameError">             
             Debe ingresar un nombre de usuario nuevo o previamente registrado
         </div>
     </div>
-
 </div>
 

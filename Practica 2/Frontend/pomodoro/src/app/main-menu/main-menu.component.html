@@ -1,0 +1,48 @@
+
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row ">
+        <div class="col alinear">
+            <h1 style="color:brown;">Establecer timer del pomodoro</h1>
+            <h4>(En minutos)</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 text-center">
+            <h3 style="color:slateblue;">Establecer tiempo de trabajo</h3>
+            <hr>
+            <div class="width:10rem;">
+                <input type="number" min="1" max="45" value="25" (input)="inputMinutos(minutosInput)" #minutosInput
+                    name="trabajo" class="alinear">
+                <span class="validity"></span>
+            </div>
+
+            <div>
+                <h1>{{minutos}}:{{segundos}} Minutos</h1>
+            </div>
+        </div>
+
+        <div class="col-6 text-center">
+            <h3 style="color:slateblue">Establecer tiempo de descanso</h3>
+            <hr>
+            <div class="width:10rem;">
+                <input type="number" min="1" max="45" value="5" (input)="inputMinutos(minutosDescansoInput)"
+                    #minutosDescansoInput name="descanso" class="alinear">
+                <span class="validity"></span>
+            </div>
+
+            <div>
+                <h1>{{descansoEnMinutos}}:{{segundos}} Minutos</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-top: 10px;">
+        <div class="col text-center">
+            <button type="button" class="btn btn-success btn-lg btn-block" [disabled]="disableButton"> Establecer timer
+                en pomodoro</button>
+        </div>
+    </div>
+</div>
