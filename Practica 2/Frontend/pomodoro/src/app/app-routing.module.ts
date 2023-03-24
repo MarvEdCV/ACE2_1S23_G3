@@ -8,8 +8,8 @@ import { RegistrationGuard } from './services/registrationGuard.guard';
 const routes: Routes = [
   {path:"", component: RegistrationComponent},
   {path:"registration", component: RegistrationComponent}, 
-  //{path:"pomodoro-menu", canActivate:[RegistrationGuard], component: MainMenuComponent}
-  {path:"pomodoro-menu", component: MainMenuComponent}
+  {path:"pomodoro-menu", canActivate:[RegistrationGuard], component: MainMenuComponent}
+  //{path:"pomodoro-menu", component: MainMenuComponent}
 ];
 
 @NgModule({

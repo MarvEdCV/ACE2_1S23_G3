@@ -27,30 +27,25 @@ export class RegistrationComponent {
     
     this.usuarioData.getAllUsuarios().subscribe(
         (usuarios: usuario[])=>{ 
-
+          console.log(usuarios.length);
           let existeUsuario = false;   
-          usuarios.every( user =>{
-            //console.log(user.nombre);
-            if(user.nombre == this.USERNAME){
+          for(let i =0 ; i < usuarios.length; i ++){
+            if(usuarios[i].nombre == this.USERNAME){
               existeUsuario = true;
+              break;
             }
-          });
+          }
           
-          if(!existeUsuario){
-            console.log("crear un nuevo usuario");
+          if(!existeUsuario){ 
+            //console.log("crear un nuevo usuario");
             this.usuarioData.crearNuevoUsuario(this.USERNAME);
           }
           
           this.registrationService.setUsername(this.USERNAME);
           this.router.navigate(["pomodoro-menu"]);
-        }, 
-        error =>{
+        },error =>{
             console.log(error)
         });
-    
-    
-    
-    
   } 
 
   typingUsername():void{

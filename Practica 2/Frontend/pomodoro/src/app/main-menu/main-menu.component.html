@@ -41,8 +41,18 @@
 
     <div class="row" style="padding-top: 10px;">
         <div class="col text-center">
-            <button type="button" class="btn btn-success btn-lg btn-block" [disabled]="disableButton"> Establecer timer
-                en pomodoro</button>
+            <button type="button" class="btn btn-success btn-lg btn-block" [disabled]="disableButton"
+             (click)="establecerTimer()"> 
+                Establecer timer en pomodoro
+            </button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="mostrarMensaje">
+        <div class="col">
+            <div class="alert alert-warning" role="alert">
+                {{mensajeEstadoDelTimer}}
+            </div>
         </div>
     </div>
 </div>
