@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  backend:
+    image: backend:latest
+    networks:
+      - backend-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+      update_config:
+        delay: 10s
+        order: start-first
+networks:
+  backend-network:
+    external: true
