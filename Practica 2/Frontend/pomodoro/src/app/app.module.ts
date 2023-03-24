@@ -12,6 +12,8 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { RegistrationService } from './services/registrationService.service';
 import { RegistrationGuard } from './services/registrationGuard.guard';
 import { NavbarComponent } from './main-menu/navbar/navbar.component';
+import { UsuarioData} from './services/routes/usuarioData.service';
+import {  HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,9 +31,10 @@ import { NavbarComponent } from './main-menu/navbar/navbar.component';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }), 
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [RegistrationService, RegistrationGuard],
+  providers: [RegistrationService, RegistrationGuard, UsuarioData],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
