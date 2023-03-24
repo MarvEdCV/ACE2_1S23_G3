@@ -27,7 +27,7 @@ export class RegistrationComponent {
     
     this.usuarioData.getAllUsuarios().subscribe(
         (usuarios: usuario[])=>{ 
-          console.log(usuarios.length);
+          
           let existeUsuario = false;   
           for(let i =0 ; i < usuarios.length; i ++){
             if(usuarios[i].nombre == this.USERNAME){
@@ -37,7 +37,7 @@ export class RegistrationComponent {
           }
           
           if(!existeUsuario){ 
-            //console.log("crear un nuevo usuario");
+            console.log("crear un nuevo usuario");
             this.usuarioData.crearNuevoUsuario(this.USERNAME);
           }
           

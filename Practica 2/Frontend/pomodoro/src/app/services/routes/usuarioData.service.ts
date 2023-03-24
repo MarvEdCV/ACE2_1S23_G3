@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class UsuarioData{
 
-    private usuarioURL: string = "http://localhost:4010/api/usuarios";
+    private usuarioURL: string = "http://35.172.236.7:4010/api/usuarios";
 
     constructor(private httpClient:HttpClient){ }
 
