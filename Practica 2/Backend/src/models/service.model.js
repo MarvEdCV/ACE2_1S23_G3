@@ -321,6 +321,34 @@ class ServiceModel extends Database {
         })
     }
 
+    async updateUser(defaultTimePomodoro, defaultTimeDescanso) {
+
+        // Si es segundo, tercer o cuarto ciclo se obtiene el ultimo pomodoro del usuario
+        const lastPomodoro = await this.lastPomodoro();
+        const lastPomodoroId = lastPomodoro[0].pomodoro_id;
+        //Obtenemos el utlimo ciclo del usuario en su ultimo pomodoro
+        const lastCycle = await this.lastCycle(lastPomodoroId);
+
+        const defaultTime = await this.checkDefaultTime(defaultTimePomodoro, defaultTimeDescanso);
+        let defaultTimeId = null;
+        if(defaultTime.length > 0){
+            defaultTimeId = defaultTime[0].tiempo_default_id;
+        }else{
+            const newDefaultTime = await this.saveDefaultTime(defaultTimePomodoro, defaultTimeDescanso);
+            defaultTimeId = newDefaultTime.insertId;
+        }
+        let tipo;
+        if(lastCycle[0].tipo_ciclo_id === TIPO_POMODORO){
+            tipo = 'actividad';
+        }else{
+            tipo = 'descanso'
+        }
+        await this.queryView({sql:`UPDATE usuario SET tiempo_default_id = ${defaultTimeId} WHERE es_activo = 1`})
+        if(lastCycle[0].numero_ciclo === CUARTO_CICLO && lastCycle[0].tipo_ciclo_id === TIPO_POMODORO){
+            return {"cambio_tiempo_default": true,"inmediato":true, "mensaje": "El tiempo default del usuario fue cambiado con éxito de manera inmediata"}
+        }
+        return {"cambio_tiempo_default": true,"inmediato":false, "mensaje": `El tiempo default del usuario fue cambiado con éxito, se encuentra un pomodoro activo en el ciclo ${lastCycle[0].numero_ciclo} de tipo ${tipo}, se reflejará la actualización hasta el siguiente pomodoro`}
+    }
 
 
     async penalty(typePenalty, time, cycleNumber) {

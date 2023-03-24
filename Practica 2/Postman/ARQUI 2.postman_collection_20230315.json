@@ -224,13 +224,42 @@
 					"response": []
 				},
 				{
+					"name": "Actualizar tiempo default",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tiempo_pomodoro\": 16,\r\n    \"tiempo_descanso\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4010/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Guardar ciclo",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"duracion\": 0,\r\n  \"numero_ciclo\": 3,\r\n  \"tipo\": 1\r\n}",
+							"raw": "{\r\n  \"duracion\": 0,\r\n  \"numero_ciclo\": 1,\r\n  \"tipo\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

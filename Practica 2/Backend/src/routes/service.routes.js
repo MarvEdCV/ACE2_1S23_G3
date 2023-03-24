@@ -38,7 +38,7 @@ router.post("/pomodoro", (req, res) => {
 
 router.post("/penalizacion", (req, res) => {
     ServiceModel.create(req.app)
-        .penalty(req.body.tipo_penalizacion,req.body.tiempo,req.body.numero_ciclo)
+        .penalty(req.body.tipo_penalizacion,req.body.tiempo, req.body.numero_ciclo)
         .then(data => {
             res.status(httpCode.OK).json(data)
         }).catch(err => {
@@ -53,6 +53,16 @@ router.get("/usuarios", (req, res) => {
     ServiceModel.create(req.app)
         .getUsers().then(data => {
         res.status(httpCode.OK).json(data);
+    }).catch(err => {
+        console.log(err);
+        res.status(httpCode.INTERNAL_SERVER_ERROR).json(err);
+    })
+})
+
+router.put("/usuarios", (req, res) => {
+    ServiceModel.create(req.app)
+        .updateUser(req.body.tiempo_pomodoro, req.body.tiempo_descanso).then(data => {
+        res.status(httpCode.OK).json(data)
     }).catch(err => {
         console.log(err);
         res.status(httpCode.INTERNAL_SERVER_ERROR).json(err);
