@@ -10,6 +10,6 @@ RUN apk update \
 
 COPY . .
 
-EXPOSE 80
+EXPOSE 4010
 
 CMD [ "npm", "start-dev" ]

@@ -4,6 +4,8 @@ services:
     image: backend:latest
     networks:
       - backend-network
+    ports:
+      - "8080:4010"
     deploy:
       resources:
         limits:
