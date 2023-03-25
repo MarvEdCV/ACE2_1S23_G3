@@ -1,0 +1,48 @@
+
+<div class="gradient-custom" style="height: 100vh;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            
+            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+              <div id="parteNegra" class="card-body p-5 text-center">
+    
+                <div class="mb-md-5 mt-md-4 pb-5">
+    
+                    <h2 class="fw-bold mb-2 text-uppercase" >Login</h2>
+                    <p class="text-white-50 mb-5">Porfavor seleccione su usuario!</p>
+                    
+                    <div class="form-outline form-white mb-4">  
+                        <select name="usuarios" class="form-control form-control-lg" (change)="changeUsername($event)">
+                            <option>--Select username--</option>
+                            <option [value]="indexOfElement" *ngFor="let user of listaUsuarios; let indexOfElement = index">
+                                {{user.nombre}}
+                            </option>
+                        </select>
+
+                      <label class="form-label" for="typeEmailX" style="color: coral;">Username</label>
+                    </div>
+      
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit" (click)="login()">Login</button>
+      
+                </div>
+      
+                <div>
+                    <p class="mb-0">Aún no tiene usuario? <a href="registration" class="text-white-50 fw-bold">Sign Up</a>
+                    </p>
+                </div>
+                    
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+    
+    
+
+

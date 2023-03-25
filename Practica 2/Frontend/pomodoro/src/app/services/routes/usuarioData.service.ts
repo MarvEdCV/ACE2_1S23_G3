@@ -3,13 +3,19 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class UsuarioData{
-
+                                  
     private usuarioURL: string = "http://35.172.236.7:4010/api/usuarios";
 
     constructor(private httpClient:HttpClient){ }
 
     getAllUsuarios(){
-        return this.httpClient.get<[]>(this.usuarioURL);
+        let headers = new HttpHeaders();
+        //headers.append('Content-Type', 'application/json');
+        //headers.append('Accept', 'application/json');
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Access-Control-Allow-Credentials', 'true');
+
+        return this.httpClient.get<[]>(this.usuarioURL, {headers:headers});
     }
 
     crearNuevoUsuario(username:string){
@@ -35,5 +41,11 @@ export class UsuarioData{
 
         
         return this.httpClient.put<{inmediato:false, mensaje:""}>(this.usuarioURL, newBody );
+    }
+
+    activarUsuario(idUsuario:number){
+        
+        let url = "http://35.172.236.7:4010/api/activar-usuario/"+idUsuario;
+        return this.httpClient.post<{cambio_usuario_activo:false, mensaje:""}>(url, {});
     }
 }
