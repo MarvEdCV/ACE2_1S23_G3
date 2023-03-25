@@ -151,8 +151,20 @@ class ServiceModel extends Database {
         return this.queryView({sql: `SELECT * FROM pomodoro p JOIN usuario u ON p.usuario_id = u.usuario_id WHERE u.es_activo=1 ORDER BY p.fecha_creacion DESC LIMIT 1`})
     }
 
+    allPomodoros() {
+        return this.queryView({sql: `SELECT * FROM pomodoro p JOIN usuario u ON p.usuario_id = u.usuario_id WHERE u.es_activo=1 ORDER BY p.fecha_creacion DESC`})
+    }
+
     lastCycle(pomodoroId) {
         return this.queryView({sql: `SELECT * FROM ciclo WHERE pomodoro_id = ${pomodoroId} ORDER BY fecha_creacion DESC LIMIT 1`})
+    }
+
+    allCycles(pomodoroId) {
+        return this.queryView({sql: `SELECT c.ciclo_id,c.tiempo,c.fecha_creacion,c.numero_ciclo,tc.tipo FROM ciclo c JOIN tipo_ciclo tc ON c.tipo_ciclo_id = tc.tipo_ciclo_id WHERE c.pomodoro_id = ${pomodoroId} ORDER BY c.fecha_creacion DESC`})
+    }
+
+    allPenaltys(pomodoroId){
+        return this.queryView({sql: `SELECT p.penalizacion_id, p.tiempo, p.fecha_creacion,tp.nombre FROM penalizacion p JOIN tipo_penalizacion tp ON p.tipo_penalizacion_id = tp.tipo_penalizacion_id WHERE p.pomodoro_id = ${pomodoroId} ORDER BY p.fecha_creacion DESC`})
     }
 
     lastCyclePomodoro(pomodoroId) {
@@ -315,7 +327,7 @@ class ServiceModel extends Database {
         return true;
     }
 
-    savePenalty(time,type,pomodoroId){
+    savePenalty(time, type, pomodoroId) {
         return this.queryView({
             sql: `INSERT INTO penalizacion (tiempo,tipo_penalizacion_id,pomodoro_id) VALUES(${time},${type},${pomodoroId});`
         })
@@ -331,23 +343,31 @@ class ServiceModel extends Database {
 
         const defaultTime = await this.checkDefaultTime(defaultTimePomodoro, defaultTimeDescanso);
         let defaultTimeId = null;
-        if(defaultTime.length > 0){
+        if (defaultTime.length > 0) {
             defaultTimeId = defaultTime[0].tiempo_default_id;
-        }else{
+        } else {
             const newDefaultTime = await this.saveDefaultTime(defaultTimePomodoro, defaultTimeDescanso);
             defaultTimeId = newDefaultTime.insertId;
         }
         let tipo;
-        if(lastCycle[0].tipo_ciclo_id === TIPO_POMODORO){
+        if (lastCycle[0].tipo_ciclo_id === TIPO_POMODORO) {
             tipo = 'actividad';
-        }else{
+        } else {
             tipo = 'descanso'
         }
-        await this.queryView({sql:`UPDATE usuario SET tiempo_default_id = ${defaultTimeId} WHERE es_activo = 1`})
-        if(lastCycle[0].numero_ciclo === CUARTO_CICLO && lastCycle[0].tipo_ciclo_id === TIPO_POMODORO){
-            return {"cambio_tiempo_default": true,"inmediato":true, "mensaje": "El tiempo default del usuario fue cambiado con éxito de manera inmediata"}
+        await this.queryView({sql: `UPDATE usuario SET tiempo_default_id = ${defaultTimeId} WHERE es_activo = 1`})
+        if (lastCycle[0].numero_ciclo === CUARTO_CICLO && lastCycle[0].tipo_ciclo_id === TIPO_POMODORO) {
+            return {
+                "cambio_tiempo_default": true,
+                "inmediato": true,
+                "mensaje": "El tiempo default del usuario fue cambiado con éxito de manera inmediata"
+            }
         }
-        return {"cambio_tiempo_default": true,"inmediato":false, "mensaje": `El tiempo default del usuario fue cambiado con éxito, se encuentra un pomodoro activo en el ciclo ${lastCycle[0].numero_ciclo} de tipo ${tipo}, se reflejará la actualización hasta el siguiente pomodoro`}
+        return {
+            "cambio_tiempo_default": true,
+            "inmediato": false,
+            "mensaje": `El tiempo default del usuario fue cambiado con éxito, se encuentra un pomodoro activo en el ciclo ${lastCycle[0].numero_ciclo} de tipo ${tipo}, se reflejará la actualización hasta el siguiente pomodoro`
+        }
     }
 
 
@@ -368,18 +388,40 @@ class ServiceModel extends Database {
             return isValidType;
         }
 
-        const newPenalty = await this.savePenalty(time,typePenalty,lastPomodoroId);
+        const newPenalty = await this.savePenalty(time, typePenalty, lastPomodoroId);
 
         //GUARDAMOS CUMPLIMEINTO
         //CALCULAMOS EL TIEMPO
         const tiempo_cumplimiento = lastCycle[0].tiempo - time;
-        if(typePenalty === PENALIZACION_POR_PARARSE){
-            await this.savePenalty(tiempo_cumplimiento,CUMPLIMIENTO_POR_SENTARSE,lastPomodoroId);
-        }else if( typePenalty === PENALIZACION_POR_SENTARSE){
-            await this.savePenalty(tiempo_cumplimiento,CUMPLIMIENTO_POR_PARARSE,lastPomodoroId);
+        if (typePenalty === PENALIZACION_POR_PARARSE) {
+            await this.savePenalty(tiempo_cumplimiento, CUMPLIMIENTO_POR_SENTARSE, lastPomodoroId);
+        } else if (typePenalty === PENALIZACION_POR_SENTARSE) {
+            await this.savePenalty(tiempo_cumplimiento, CUMPLIMIENTO_POR_PARARSE, lastPomodoroId);
         }
 
         return this.queryView({sql: `SELECT * FROM penalizacion WHERE penalizacion_id = ${newPenalty.insertId}`})
+    }
+
+    async getDataGraficas() {
+        const user = await this.getActiveUser()
+        const allPomodoros = await this.allPomodoros();
+        if (allPomodoros.length > 0) {
+            const pomodoroResponse = {};
+            for (const pomodoro of allPomodoros) {
+                const cycles = await this.allCycles(pomodoro.pomodoro_id);
+                const penaltys = await this.allPenaltys(pomodoro.pomodoro_id);
+                pomodoroResponse[pomodoro.pomodoro_id] = {ciclos:cycles,penalizaciones:penaltys};
+            }
+            const result = {pomodoro: pomodoroResponse}
+            return {
+                "identificador":user[0].usuario_id,
+                "usuario":user[0].nombre,
+                "fecha_creacion":user[0].fecha_creacion,
+                "fecha_actualizacion":user[0].fecha_fecha_actualizacion,
+                result
+            }
+        }
+
     }
 }
 
