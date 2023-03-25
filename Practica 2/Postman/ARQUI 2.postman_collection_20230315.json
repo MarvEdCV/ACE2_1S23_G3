@@ -195,13 +195,54 @@
 					"response": []
 				},
 				{
+					"name": "ROOT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROOT Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://d65d-35-172-236-7.ngrok.io/api/",
+							"protocol": "https",
+							"host": [
+								"d65d-35-172-236-7",
+								"ngrok",
+								"io"
+							],
+							"path": [
+								"api",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Guardar Usuario",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Usuario nuevo 3\",\r\n    \"tiempo_pomodoro\": 20,\r\n    \"tiempo_descanso\": 6\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Test\",\r\n    \"tiempo_pomodoro\": 20,\r\n    \"tiempo_descanso\": 6\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -238,12 +279,45 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4010/api/usuarios",
+							"raw": "http://35.172.236.7:4010/api/usuarios",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"35",
+								"172",
+								"236",
+								"7"
 							],
 							"port": "4010",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar tiempo default Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tiempo_pomodoro\": 16,\r\n    \"tiempo_descanso\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://d65d-35-172-236-7.ngrok.io/api/usuarios",
+							"protocol": "https",
+							"host": [
+								"d65d-35-172-236-7",
+								"ngrok",
+								"io"
+							],
 							"path": [
 								"api",
 								"usuarios"
@@ -346,6 +420,26 @@
 							"path": [
 								"api",
 								"penalizacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GRAFICAS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/graficas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"graficas"
 							]
 						}
 					},

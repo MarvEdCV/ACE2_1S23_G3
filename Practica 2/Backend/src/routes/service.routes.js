@@ -95,5 +95,15 @@ router.post("/activar-usuario/:id", (req, res) => {
     })
 })
 
+router.get("/graficas",(req,res) => {
+    ServiceModel.create(req.app)
+        .getDataGraficas().then(data => {
+            res.status(httpCode.OK).json(data)
+    }).catch(err => {
+        console.log(err);
+        res.status(httpCode.INTERNAL_SERVER_ERROR).json(err);
+    })
+})
+
 
 module.exports = {router}

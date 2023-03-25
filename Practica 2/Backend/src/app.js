@@ -7,7 +7,18 @@ const p1Routes = require('./routes/service.routes')
 const bodyParser = require('body-parser');
 
 const cors = require("cors");
+
 app.use(cors());
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, authorization',
+    );
+    next();
+});
 
 app.set("port",4010);
 
