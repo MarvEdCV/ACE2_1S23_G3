@@ -16,6 +16,7 @@ export class RegistrationComponent {
   }
 
   hideUsernameError:boolean = true;
+  hideElementUsernameDuplicated:boolean = true;
   USERNAME:string = "";
  
   ingresarUsuario():void {
@@ -28,7 +29,8 @@ export class RegistrationComponent {
     this.usuarioData.getAllUsuarios().subscribe(
         (usuarios: usuario[])=>{ 
           
-          let existeUsuario = false;   
+          let existeUsuario = false; 
+
           for(let i =0 ; i < usuarios.length; i ++){
             if(usuarios[i].nombre == this.USERNAME){
               existeUsuario = true;
@@ -39,10 +41,9 @@ export class RegistrationComponent {
           if(!existeUsuario){ 
             console.log("crear un nuevo usuario");
             this.usuarioData.crearNuevoUsuario(this.USERNAME);
+          }else{
+            this.hideElementUsernameDuplicated = false;
           }
-          
-          this.registrationService.setUsername(this.USERNAME);
-          this.router.navigate(["pomodoro-menu"]);
         },error =>{
             console.log(error)
         });
@@ -50,5 +51,7 @@ export class RegistrationComponent {
 
   typingUsername():void{
     this.hideUsernameError = true;
+    this.hideElementUsernameDuplicated = true;
   }
 }
+

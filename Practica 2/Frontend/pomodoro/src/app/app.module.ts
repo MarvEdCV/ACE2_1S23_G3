@@ -8,19 +8,22 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { RegistrationComponent } from './registration/registration.component';
 import { FormsModule } from '@angular/forms';
 import { MainMenuComponent } from './main-menu/main-menu.component';
+import { NavbarComponent } from './main-menu/navbar/navbar.component';
+import { RootMenuComponent } from './root-menu/root-menu.component';
 // servicios
 import { RegistrationService } from './services/registrationService.service';
 import { RegistrationGuard } from './services/registrationGuard.guard';
-import { NavbarComponent } from './main-menu/navbar/navbar.component';
-import { UsuarioData} from './services/routes/usuarioData.service';
-import {  HttpClientModule } from '@angular/common/http';
+import { UsuarioData } from './services/routes/usuarioData.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     MainMenuComponent,
-    NavbarComponent
+    NavbarComponent,
+    RootMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import {  HttpClientModule } from '@angular/common/http';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    }), 
+    }),
     FormsModule,
     HttpClientModule
   ],
