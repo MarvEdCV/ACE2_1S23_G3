@@ -417,7 +417,7 @@ class ServiceModel extends Database {
                 "identificador":user[0].usuario_id,
                 "usuario":user[0].nombre,
                 "fecha_creacion":user[0].fecha_creacion,
-                "fecha_actualizacion":user[0].fecha_fecha_actualizacion,
+                "fecha_actualizacion":user[0].fecha_actualizacion,
                 result
             }
         }
