@@ -160,11 +160,11 @@ class ServiceModel extends Database {
     }
 
     allCycles(pomodoroId) {
-        return this.queryView({sql: `SELECT c.ciclo_id,c.tiempo,c.fecha_creacion,c.numero_ciclo,tc.tipo FROM ciclo c JOIN tipo_ciclo tc ON c.tipo_ciclo_id = tc.tipo_ciclo_id WHERE c.pomodoro_id = ${pomodoroId} ORDER BY c.fecha_creacion DESC`})
+        return this.queryView({sql: `SELECT c.ciclo_id,c.tiempo,c.fecha_creacion,c.numero_ciclo,tc.tipo FROM ciclo c JOIN tipo_ciclo tc ON c.tipo_ciclo_id = tc.tipo_ciclo_id WHERE c.pomodoro_id = ${pomodoroId} ORDER BY c.fecha_creacion ASC`})
     }
 
     allPenaltys(pomodoroId){
-        return this.queryView({sql: `SELECT p.penalizacion_id, p.tiempo, p.fecha_creacion,tp.nombre FROM penalizacion p JOIN tipo_penalizacion tp ON p.tipo_penalizacion_id = tp.tipo_penalizacion_id WHERE p.pomodoro_id = ${pomodoroId} ORDER BY p.fecha_creacion DESC`})
+        return this.queryView({sql: `SELECT p.penalizacion_id, p.tiempo, p.fecha_creacion,tp.nombre FROM penalizacion p JOIN tipo_penalizacion tp ON p.tipo_penalizacion_id = tp.tipo_penalizacion_id WHERE p.pomodoro_id = ${pomodoroId} ORDER BY p.fecha_creacion ASC`})
     }
 
     lastCyclePomodoro(pomodoroId) {
