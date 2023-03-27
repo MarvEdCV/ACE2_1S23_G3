@@ -98,7 +98,7 @@ class ServiceModel extends Database {
         const lastPomodoro = await this.lastPomodoro();
         const lastPomodoroId = lastPomodoro[0].pomodoro_id;
         const lastCyclePomodoro = await this.lastCyclePomodoro(lastPomodoroId);
-        if (lastCyclePomodoro[0].numero_cilco !== CUARTO_CICLO) {
+        if (lastCyclePomodoro[0].numero_ciclo !== CUARTO_CICLO) {
             return {
                 "cambio_usuario_activo": false,
                 "mensaje": "No puedes activar a un usuario distinto sin antes terminar los 4 ciclos del pomodoro actual"
