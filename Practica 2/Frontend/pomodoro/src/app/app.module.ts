@@ -15,6 +15,7 @@ import { RegistrationService } from './services/registrationService.service';
 import { RegistrationGuard } from './services/registrationGuard.guard';
 import { UsuarioData } from './services/routes/usuarioData.service';
 import { HttpClientModule } from '@angular/common/http';
+import { GraficasComponent } from './graficas/graficas.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     RegistrationComponent,
     MainMenuComponent,
     NavbarComponent,
-    RootMenuComponent
+    RootMenuComponent,
+    GraficasComponent
   ],
   imports: [
     BrowserModule,
