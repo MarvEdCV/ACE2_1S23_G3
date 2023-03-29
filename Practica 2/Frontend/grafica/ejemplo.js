@@ -63,23 +63,23 @@ async function myFunction(){
 }
 
 function svg1(datos,Max_svg1,cantidadP1,alturaRect,condicional,color,titulo,f1,f2){
-
+    console.log("cantidadP1",cantidadP1)
     svg1str = `<div><h1>${titulo}</h1>`
         svg1str += `
-        <svg width="${90*cantidadP1}" height="500">
+        <svg width="${150 + 60*(cantidadP1-1)}" height="500">
         <line x1="40" y1="50" x2="40" y2="300" stroke="black" stroke-width="2" />
-        <line x1="40" y1="299" x2="${75*cantidadP1}" y2="299" stroke="black" stroke-width="2" />
+        <line x1="40" y1="299" x2="${110 + 60*(cantidadP1-1)}" y2="299" stroke="black" stroke-width="2" />
         `
         svg1str += ` <text x="310" y="${-30}" fill="black"  transform="rotate(90)" >dd/mm/yyyy hh:mm:ss</text>`
-        svg1str += ` <text x="310" y="${-75*cantidadP1}" fill="black"  transform="rotate(90)" >dd/mm/yyyy hh:mm:ss</text>`
+        svg1str += ` <text x="310" y="${-110 - 60*(cantidadP1-1)}" fill="black"  transform="rotate(90)" >dd/mm/yyyy hh:mm:ss</text>`
 
         svg1str+= `<text x="35" y="45" fill="black"  >Min</text>`
-        svg1str+= `<text x="${76*cantidadP1}" y="300" fill="black">Fecha</text>`
+        svg1str+= `<text x="${112 + 60*(cantidadP1-1)}" y="300" fill="black">Fecha</text>`
 
         for(var j=0;j<=10;j++){
             svg1str+= `<text x="0" y="${50 + j *25}" fill="black"  >${(Max_svg1*((10-j)/10)).toFixed(2)}</text>`
             svg1str+= `<line x1="35" y1="${50 + j *25}" x2="41" y2="${50+ j *25}" stroke="black" stroke-width="2" />`
-            svg1str+= `<line x1="40" y1="${50 + j *25}" x2="${75*cantidadP1}" y2="${50+ j *25}" stroke="black" stroke-width="0.5" />`
+            svg1str+= `<line x1="40" y1="${50 + j *25}" x2="${112 + 60*(cantidadP1-1)}" y2="${50+ j *25}" stroke="black" stroke-width="0.5" />`
         }
       
         var i = 0;
@@ -102,25 +102,26 @@ function svg1(datos,Max_svg1,cantidadP1,alturaRect,condicional,color,titulo,f1,f
 }
 
 function svg2(datos,Max_svg1,cantidadP1,alturaRect,titulo,f1,f2){
+
     svg1str = `<div><h1>${titulo}</h1>`
     svg1str += `<h5> Amarillo Esta parado cuando deberia estar sentado</h5>`
     svg1str += `<h5> Rojo Esta sentado cuando deberia estar parado</h5>`
 
     svg1str += `
-    <svg width="${90*cantidadP1}" height="500">
+    <svg width="${150 + 60*(cantidadP1-1)}" height="500">
     <line x1="40" y1="50" x2="40" y2="300" stroke="black" stroke-width="2" />
-    <line x1="40" y1="299" x2="${75*cantidadP1}" y2="299" stroke="black" stroke-width="2" />
+    <line x1="40" y1="299" x2="${110 + 60*(cantidadP1-1)}" y2="299" stroke="black" stroke-width="2" />
     `
     svg1str += ` <text x="310" y="${-30}" fill="black"  transform="rotate(90)" >${f1}</text>`
-    svg1str += ` <text x="310" y="${-75*cantidadP1}" fill="black"  transform="rotate(90)" >${f2}</text>`
+    svg1str += ` <text x="310" y="${-110 - 60*(cantidadP1-1)}" fill="black"  transform="rotate(90)" >${f2}</text>`
 
     svg1str+= `<text x="35" y="45" fill="black"  >%</text>`
-    svg1str+= `<text x="${76*cantidadP1}" y="300" fill="black">Fecha</text>`
+    svg1str+= `<text x="${112 + 60*(cantidadP1-1)}" y="300" fill="black">Fecha</text>`
 
     for(var j=0;j<=10;j++){
         svg1str+= `<text x="5" y="${50 + j *25}" fill="black" font-size="15" >${(Max_svg1*((10-j)/10))}</text>`
         svg1str+= `<line x1="35" y1="${50 + j *25}" x2="41" y2="${50+ j *25}" stroke="black" stroke-width="2" />`
-        svg1str+= `<line x1="40" y1="${50 + j *25}" x2="${75*cantidadP1}" y2="${50+ j *25}" stroke="black" stroke-width="0.5" />`
+        svg1str+= `<line x1="40" y1="${50 + j *25}" x2="${110 + 60*(cantidadP1-1)}" y2="${50+ j *25}" stroke="black" stroke-width="0.5" />`
     }
     
     var i = 0;
@@ -158,31 +159,37 @@ function svg2(datos,Max_svg1,cantidadP1,alturaRect,titulo,f1,f2){
         i++;
         }
     }
+
+    // svg1str += `
+  
+    // <line x1="40" y1="299" x2="${110}" y2="299" stroke="black" stroke-width="2" />
+    // `
     svg1str += `</svg></div>`  
     return svg1str;
 }
 
 function svg3(datos,Max_svg1,cantidadP1,alturaRect,titulo,f1,f2){
+
     svg1str = `<div><h1>${titulo}</h1>`
 
     svg1str += `<h5> Azul Esta parado cuando deberia estar sentado</h5>`
     svg1str += `<h5> Verde Esta sentado cuando deberia estar parado</h5>`
 
     svg1str += `
-    <svg width="${75*cantidadP1*3}" height="500">
+    <svg width="${270 + 180*(cantidadP1-1)}" height="500">
     <line x1="40" y1="50" x2="40" y2="300" stroke="black" stroke-width="2" />
-    <line x1="40" y1="299" x2="${67*cantidadP1*3}" y2="299" stroke="black" stroke-width="2" />
+    <line x1="40" y1="299" x2="${230 + 180*(cantidadP1-1)}" y2="299" stroke="black" stroke-width="2" />
     `
     svg1str += ` <text x="310" y="${-30}" fill="black"  transform="rotate(90)" >${f1}</text>`
-    svg1str += ` <text x="310" y="${-67*cantidadP1*3}" fill="black"  transform="rotate(90)" >${f2}</text>`
+    svg1str += ` <text x="310" y="${-230 - 180*(cantidadP1-1)}" fill="black"  transform="rotate(90)" >${f2}</text>`
 
     svg1str+= `<text x="35" y="45" fill="black"> Min </text>`
-    svg1str+= `<text x="${67*cantidadP1*3}" y="300" fill="black">Fecha</text>`
+    svg1str+= `<text x="${230 + 180*(cantidadP1-1)}" y="300" fill="black">Fecha</text>`
 
     for(var j=0;j<=10;j++){
         svg1str+= `<text x="5" y="${50 + j *25}" fill="black" font-size="15" >${(Max_svg1*((10-j)/10))}</text>`
         svg1str+= `<line x1="35" y1="${50 + j *25}" x2="41" y2="${50+ j *25}" stroke="black" stroke-width="2" />`
-        svg1str+= `<line x1="40" y1="${50 + j *25}" x2="${67*cantidadP1*3}" y2="${50+ j *25}" stroke="black" stroke-width="0.5" />`
+        svg1str+= `<line x1="40" y1="${50 + j *25}" x2="${230 + 180*(cantidadP1-1)}" y2="${50+ j *25}" stroke="black" stroke-width="0.5" />`
     }
     
     var i = 0;
@@ -223,6 +230,7 @@ function svg3(datos,Max_svg1,cantidadP1,alturaRect,titulo,f1,f2){
         const end = start + 60 * i;
         svg1str += `<line x1="${end}" y1="45" x2="${end}" y2="300" stroke="red" stroke-width="2" />`
         i++;
+        
         }
     }
     svg1str += `</svg></div>`  
