@@ -9,12 +9,6 @@ declare function myFunction():void;
 })
 export class GraficasComponent implements OnInit{
 
-  constructor(){
-    //setInterval( function x() {
-    //  console.log("hola mundo");
-    //}, 1000);
-  }
-
   ngOnInit(): void {
     //myFunction();
 
