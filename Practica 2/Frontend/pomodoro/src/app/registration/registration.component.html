@@ -1,0 +1,42 @@
+
+<div class="container" style="height:95vh">
+    <div class="row">
+        <h1>Bienvenido a su Pomodoro</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="imgContainer">
+            <img src="/assets/icons/icon-72x72.png" alt="Avatar" class="avatar">
+        </div>
+        
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <label><b>Username</b></label>
+            <br>
+            <input type="text" style="width: 100%;" placeholder="Enter your Username"required  [(ngModel)]="USERNAME" (keyup)="typingUsername()">
+            <br>
+            <div style="padding-top: 20px; text-align: center;">
+                <button style=" width:50%;" type="button" class="btn btn-success" (click)="ingresarUsuario()">Crear usuario</button>
+            </div>
+            
+            <div style="padding-top: 20px; text-align: center;">
+                <p class="mb-0">Ya tiene usuario? <a href="login" class="fw-bold">Login</a>
+                </p>
+            </div>
+        </div>     
+    </div>
+
+    <div class="mensajes">
+        <div class="alert alert-danger" role="alert" [hidden]="hideUsernameError">             
+            Debe ingresar un nombre de usuario nuevo o previamente registrado
+        </div>
+
+        <div class="alert alert-warning" role="alert" [hidden]="hideElementUsernameDuplicated">             
+            El nombre de usuario <b>{{USERNAME}}</b>, esta repetido!, prueba con otro Username!
+        </div>
+        
+    </div>
+</div>
+

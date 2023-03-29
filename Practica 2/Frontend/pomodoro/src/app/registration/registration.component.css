@@ -1,0 +1,25 @@
+
+h1{
+    color:coral;
+    text-align: center;
+}
+
+.imgContainer{
+    text-align: center;
+    margin: 12px 0 12px 0;
+}
+
+img.avatar {
+  width: 20%;
+  border-radius: 50%;
+}
+
+.userInput{
+    text-align: center;
+    
+}
+
+.colorcito{
+    background-color: aqua;
+}
+

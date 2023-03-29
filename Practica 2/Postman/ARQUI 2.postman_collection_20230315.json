@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "51694a83-e41b-4971-af21-33835c9ae0bc",
+		"name": "ARQUI 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14437121"
+	},
+	"item": [
+		{
+			"name": "PRACTICA 1",
+			"item": [
+				{
+					"name": "obtener humedades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/humedad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"humedad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener vientos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/viento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"viento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener presiones barometricas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/presion-barometrica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"presion-barometrica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener temperaturas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/temperatura",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"temperatura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ultima humedad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/ultima-humedad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"ultima-humedad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ultimo viento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/ultimo-viento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"ultimo-viento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ultima presion barometrica",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/ultima-presion-barometrica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"ultima-presion-barometrica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ultima temperatura",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/ultima-temperatura",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"ultima-temperatura"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PROYECTO 1",
+			"item": [
+				{
+					"name": "Obtener tiempo default de usuario activo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/tiempo-default",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"tiempo-default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROOT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ROOT Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://d65d-35-172-236-7.ngrok.io/api/",
+							"protocol": "https",
+							"host": [
+								"d65d-35-172-236-7",
+								"ngrok",
+								"io"
+							],
+							"path": [
+								"api",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Guardar Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Test\",\r\n    \"tiempo_pomodoro\": 20,\r\n    \"tiempo_descanso\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4010/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar tiempo default",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tiempo_pomodoro\": 16,\r\n    \"tiempo_descanso\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.172.236.7:4010/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"35",
+								"172",
+								"236",
+								"7"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar tiempo default Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tiempo_pomodoro\": 16,\r\n    \"tiempo_descanso\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://d65d-35-172-236-7.ngrok.io/api/usuarios",
+							"protocol": "https",
+							"host": [
+								"d65d-35-172-236-7",
+								"ngrok",
+								"io"
+							],
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Guardar ciclo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"duracion\": 0,\r\n  \"numero_ciclo\": 1,\r\n  \"tipo\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4010/api/pomodoro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"pomodoro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activar usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/activar-usuario/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"activar-usuario",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Penalizacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"tipo_penalizacion\": 1,\r\n    \"tiempo\": 3.8,\r\n    \"numero_ciclo\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4010/api/penalizacion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"penalizacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GRAFICAS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4010/api/graficas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4010",
+							"path": [
+								"api",
+								"graficas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
