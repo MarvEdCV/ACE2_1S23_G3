@@ -1,0 +1,28 @@
+h1 {
+    font: 24px sans-serif;
+  }
+  
+  #svg_1{
+    border: 1px solid black;
+  }
+  #svg_2{
+    border: 1px solid blue;
+  }
+  #svg_3{
+    border: 1px solid red;
+  }
+  #svg_4{
+    border: 1px solid purple;
+  }
+  #svg_5{
+    border: 1px solid green;
+  }
+  #svg_6{
+    border: 1px solid yellow;
+  }
+  #svg_7{
+    border: 1px solid gray;
+  }
+  #svg_8{
+    border: 1px solid skyblue;
+  }

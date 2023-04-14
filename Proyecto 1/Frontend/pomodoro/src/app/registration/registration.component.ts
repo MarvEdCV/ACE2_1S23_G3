@@ -41,6 +41,7 @@ export class RegistrationComponent {
           if(!existeUsuario){ 
             console.log("crear un nuevo usuario");
             this.usuarioData.crearNuevoUsuario(this.USERNAME);
+            window.alert("usuario creado correctamente");
           }else{
             this.hideElementUsernameDuplicated = false;
           }
