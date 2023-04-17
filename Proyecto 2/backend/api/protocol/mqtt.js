@@ -58,6 +58,7 @@ client.on("connect", function () {
   client.subscribe(process.env.MQTT_TOPIC_IN_TEMP1);
   client.subscribe(process.env.MQTT_TOPIC_IN_TEMP2);
   client.subscribe(process.env.MQTT_TOPIC_IN_HUM1);
+  client.subscribe(process.env.MQTT_TOPIC_IN_DIST1);
 
   console.log(connectUrl.green);
 });
@@ -91,9 +92,9 @@ function recibeMsg() {
 
       await guardar_datos(topic, payload);
 
-      console.log("Device: ", payload.device);
-      console.log("Name: ", payload.name);
-      console.log("Data: ", payload.data);
+      //console.log("Device: ", payload.device);
+      //console.log("Name: ", payload.name);
+      //console.log("Data: ", payload.data);
     } catch (error) {
       console.error("Error al analizar el mensaje JSON:", error);
     }
@@ -108,21 +109,27 @@ guardar_datos = (topic, payload) => {
     const data = payload.data;
 
     if (topic === process.env.MQTT_TOPIC_IN_HUM1) {
-      console.log("Humedad sensor 1".yellow);
+      //console.log("Humedad sensor 1".yellow);
 
       query = `${process.env.DB_SAVE_HUM1} ('${device}', '${name}', '${data}', NOW())`;
     }
 
     if (topic === process.env.MQTT_TOPIC_IN_TEMP1) {
-      console.log("Temperatura sensor 1".yellow);
+      //console.log("Temperatura sensor 1".yellow);
 
       query = `${process.env.DB_SAVE_TEMP1} ('${device}', '${name}', '${data}', NOW())`;
     }
 
     if (topic === process.env.MQTT_TOPIC_IN_TEMP2) {
-      console.log("Temperatura sensor 2".yellow);
+      //console.log("Temperatura sensor 2".yellow);
 
       query = `${process.env.DB_SAVE_TEMP2} ('${device}', '${name}', '${data}', NOW())`;
+    }
+
+    if (topic === process.env.MQTT_TOPIC_IN_DIST1) {
+      //console.log("Distancia sensor 1".yellow);
+
+      query = `${process.env.DB_SAVE_DIST1} ('${device}', '${name}', '${data}', NOW())`;
     }
 
     if (!query) return false;
@@ -131,7 +138,7 @@ guardar_datos = (topic, payload) => {
       if (error) {
         return reject(error);
       } else {
-        console.log("Success".green);
+        //console.log("Success".green);
         return resolve(true);
       }
     });

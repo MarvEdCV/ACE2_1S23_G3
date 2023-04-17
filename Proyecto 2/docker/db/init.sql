@@ -83,3 +83,16 @@ CREATE TABLE `device_hum_1` (
 /* INSERTAR DISPOSITIVOS */
 INSERT INTO device_hum_1 (`device`, `name`, `data`, `created`) VALUES 
 ('dispositivo-001', 'hum1', '100', NOW());
+
+/* CREAR TABLA DISPOSITIVOS */
+CREATE TABLE `device_dist_1` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `device` VARCHAR(255) DEFAULT NULL,
+  `name` VARCHAR(255) DEFAULT NULL,
+  `data` VARCHAR(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/* INSERTAR DISPOSITIVOS */
+INSERT INTO device_dist_1 (`device`, `name`, `data`, `created`) VALUES 
+('dispositivo-001', 'dist1', '100', NOW());

@@ -11,8 +11,8 @@ router.post(process.env.API_SENSOR, async (req, res) => {
   try {
     const data = await optenerData(db_tabla);
 
-    console.log("Optiene Data ".green);
-    console.log("=======================");
+    //console.log("Optiene Data ".green);
+    //console.log("=======================");
 
     if (data == "") {
       const response = {
@@ -42,6 +42,8 @@ optenerData = (tabla) => {
     if (tabla === process.env.DB_TH) {
       query = `
             ${process.env.DB_GET_SENSOR} ${process.env.DB_T1}
+            UNION
+            ${process.env.DB_GET_SENSOR} ${process.env.DB_D1}
             UNION
             ${process.env.DB_GET_SENSOR}${process.env.DB_T2}
             UNION
