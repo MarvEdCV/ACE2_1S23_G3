@@ -44,3 +44,42 @@ VALUES
     (1, NULL, 'backend', NULL, 3, 'frontend/#'),
     (1, NULL, 'frontend', NULL, 3, '%u/#'),
     (1, NULL, 'device', NULL, 3, '%u/#');
+
+/* CREAR TABLA DISPOSITIVOS */
+CREATE TABLE `device_temp_1` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `device` VARCHAR(255) DEFAULT NULL,
+  `name` VARCHAR(255) DEFAULT NULL,
+  `data` VARCHAR(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/* INSERTAR DISPOSITIVOS */
+INSERT INTO device_temp_1 (`device`, `name`, `data`, `created`) VALUES 
+('dispositivo-001', 'temp1', '12.54', NOW());
+
+/* CREAR TABLA DISPOSITIVOS */
+CREATE TABLE `device_temp_2` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `device` VARCHAR(255) DEFAULT NULL,
+  `name` VARCHAR(255) DEFAULT NULL,
+  `data` VARCHAR(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/* INSERTAR DISPOSITIVOS */
+INSERT INTO device_temp_2 (`device`, `name`, `data`, `created`) VALUES 
+('dispositivo-001', 'temp2', '22.54', NOW());
+
+/* CREAR TABLA DISPOSITIVOS */
+CREATE TABLE `device_hum_1` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `device` VARCHAR(255) DEFAULT NULL,
+  `name` VARCHAR(255) DEFAULT NULL,
+  `data` VARCHAR(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/* INSERTAR DISPOSITIVOS */
+INSERT INTO device_hum_1 (`device`, `name`, `data`, `created`) VALUES 
+('dispositivo-001', 'hum1', '100', NOW());
