@@ -21,3 +21,5 @@ long time_send_mqtt;
 
 char topic[75];
 char topicWill[75];
+
+long time_reconect_mqtt;

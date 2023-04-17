@@ -6,6 +6,8 @@
 #include "storage/settings.hpp"
 #include "funciones.hpp"
 
+#include "protocol/conexion.hpp"
+
 void setup() {
 
   setCpuFrequencyMhz(FRECUENCIA_ESP32);
@@ -21,8 +23,12 @@ void setup() {
   Serial.println("Version: " + device_fw_version);
   Serial.println("----------------------------------------------");
 
+  Wifi_mod(Modo_STA);
 }
 
 void loop() {
+
+  conexion_wifi();
+  envia_sensores_mqtt();
 
 }

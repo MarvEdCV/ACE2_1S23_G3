@@ -3,6 +3,7 @@ void settingsReset_general()
 {
     //--------------------------------------------------------------------
 
+    vNombrePlaca = "dispositivo-001";
     ssid_udp_sta = "data_test";
     password_udp_sta = "123456789000";
     intervalWIFI_STA = 5000; // 5 segundos de descanso antes de intentar conexion wifi
@@ -47,6 +48,9 @@ boolean settingsRead_general()
     else
     {
 
+        String msgNombre = jsonSettings["vNombrePlaca"];
+        vNombrePlaca = msgNombre;
+
         String ssid_sta = jsonSettings["ssid_udp_sta"];
         ssid_udp_sta = ssid_sta;
 
@@ -89,6 +93,9 @@ boolean settingsSave_general()
 
     if (file)
     {
+
+        jsonSettings["vNombrePlaca"] = vNombrePlaca;
+        
         jsonSettings["ssid_udp_sta"] = ssid_udp_sta;
         jsonSettings["password_udp_sta"] = password_udp_sta;
         jsonSettings["intervalWIFI_STA"] = intervalWIFI_STA;

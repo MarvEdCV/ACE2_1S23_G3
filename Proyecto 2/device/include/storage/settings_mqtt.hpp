@@ -9,15 +9,18 @@ void settingsReset_mqtt()
     // -------------------------------------------------------------------
 
     strlcpy(host_mqtt, "54.183.38.85", sizeof(host_mqtt));
-    strlcpy(willMsg, "device OFF", sizeof(willMsg));
-    strlcpy(backMsg, "device ON", sizeof(backMsg));
+    strlcpy(willMsg, "{'Status':'OFF'}", sizeof(willMsg));
+    strlcpy(backMsg, "{'Status':'ON'}", sizeof(backMsg));
+    mqtt_clientId = "device_";
+    user_mqtt = "device";
+    pass_mqtt = "public";
     port_mqtt = 1883;
     suscripcionQos = 0;
     willQos = 0;
     willRetain = false;
     cleanSession = true;
     mqtt_keepalive = 60;
-    mqtt_sockettimeout = 15;
+    mqtt_sockettimeout = 60;
     mqtt_buffer = 512;
 
     // MQTT
@@ -59,6 +62,12 @@ boolean settingsRead_mqtt()
         strlcpy(host_mqtt, jsonSettings["host_mqtt"], sizeof(host_mqtt));
         strlcpy(willMsg, jsonSettings["willMsg"], sizeof(willMsg));
         strlcpy(backMsg, jsonSettings["backMsg"], sizeof(backMsg));
+        String _cliente = jsonSettings["mqtt_clientId"];
+        mqtt_clientId = _cliente;
+        String _user = jsonSettings["user_mqtt"];
+        user_mqtt = _user;
+        String _pass = jsonSettings["pass_mqtt"];
+        pass_mqtt = _pass;
         port_mqtt = jsonSettings["port_mqtt"];
         suscripcionQos = jsonSettings["suscripcionQos"];
         willQos = jsonSettings["willQos"];
@@ -101,6 +110,9 @@ boolean settingsSave_mqtt()
         jsonSettings["host_mqtt"] = host_mqtt;
         jsonSettings["willMsg"] = willMsg;
         jsonSettings["backMsg"] = backMsg;
+        jsonSettings["mqtt_clientId"] = mqtt_clientId;
+        jsonSettings["user_mqtt"] = user_mqtt;
+        jsonSettings["pass_mqtt"] = pass_mqtt;
         jsonSettings["port_mqtt"] = port_mqtt;
         jsonSettings["suscripcionQos"] = suscripcionQos;
         jsonSettings["willQos"] = willQos;
