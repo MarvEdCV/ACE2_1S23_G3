@@ -25,9 +25,13 @@ void envia_sensores_mqtt()
 
                 // {"device":"dispositivo-001", "name": "temp1", "data": 23}
 
+                char data[5];
+
+                sprintf(data, "%0.2f", temperatura1_read);
+
                 doc_envia["device"] = vNombrePlaca;
                 doc_envia["name"] = "temp1";
-                doc_envia["data"] = temperatura1_read;
+                doc_envia["data"] = data;
 
                 serializeJson(doc_envia, json_msg);
 
@@ -38,6 +42,8 @@ void envia_sensores_mqtt()
                 }
 
                 time_temp1 = millis();
+
+                delay(10);
             }
 
             // temp2
@@ -49,9 +55,13 @@ void envia_sensores_mqtt()
 
                 // {"device":"dispositivo-001", "name": "temp2", "data": 23}
 
+                char data[5];
+
+                sprintf(data, "%0.2f", temperatura2_read);
+
                 doc_envia["device"] = vNombrePlaca;
                 doc_envia["name"] = "temp2";
-                doc_envia["data"] = temperatura2_read;
+                doc_envia["data"] = data;
 
                 serializeJson(doc_envia, json_msg);
 
@@ -62,6 +72,8 @@ void envia_sensores_mqtt()
                 }
 
                 time_temp2 = millis();
+
+                delay(10);
             }
 
             // hum1
@@ -88,6 +100,8 @@ void envia_sensores_mqtt()
                 */
 
                 time_hum1 = millis();
+
+                delay(10);
             }
 
             // dist1
@@ -114,6 +128,8 @@ void envia_sensores_mqtt()
                 */
 
                 time_dist1 = millis();
+
+                delay(10);
             }
 
             mqtt_client.loop();

@@ -4,8 +4,8 @@ void settingsReset_general()
     //--------------------------------------------------------------------
 
     vNombrePlaca = "dispositivo-001";
-    ssid_udp_sta = "data_test";
-    password_udp_sta = "123456789000";
+    ssid_udp_sta = "UNE_3F95_plus";
+    password_udp_sta = "23199200Jose";
     intervalWIFI_STA = 5000; // 5 segundos de descanso antes de intentar conexion wifi
     reconexion_intentos = 3; // 3 intentos de conectar STA
     // -------------------------------------------------------------------
