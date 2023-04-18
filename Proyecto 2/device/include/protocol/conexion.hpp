@@ -3,8 +3,6 @@
 
 void envia_sensores_mqtt()
 {
-    DynamicJsonDocument doc_envia(1023);
-    String json_msg;
 
     if (WiFi.status() == WL_CONNECTED)
     {
@@ -17,17 +15,105 @@ void envia_sensores_mqtt()
 
             // sensores
             //=================================================================
-            if (millis() > time_send_mqtt + intervalWIFI_MQTT)
+
+            // temp1
+            //=================================================================
+            if (millis() > time_temp1 + time_temp1_limit)
             {
+                DynamicJsonDocument doc_envia(1023);
+                String json_msg;
+
+                // {"device":"dispositivo-001", "name": "temp1", "data": 23}
 
                 doc_envia["Device"] = vNombrePlaca;
+                doc_envia["name"] = "temp1";
+                doc_envia["data"] = 12;
 
                 serializeJson(doc_envia, json_msg);
                 Serial.println(json_msg);
 
-                mqtt_client.publish("topic/test", json_msg.c_str(), false);
+                if (mqtt_client.publish(topic_temp1, json_msg.c_str(), false))
+                {
 
-                time_send_mqtt = millis();
+                    log("temp1 success");
+                }
+
+                time_temp1 = millis();
+            }
+
+            // temp2
+            //=================================================================
+            if (millis() > time_temp2 + time_temp2_limit)
+            {
+                DynamicJsonDocument doc_envia(1023);
+                String json_msg;
+
+                // {"device":"dispositivo-001", "name": "temp2", "data": 23}
+
+                doc_envia["Device"] = vNombrePlaca;
+                doc_envia["name"] = "temp2";
+                doc_envia["data"] = 13;
+
+                serializeJson(doc_envia, json_msg);
+                Serial.println(json_msg);
+
+                if (mqtt_client.publish(topic_temp2, json_msg.c_str(), false))
+                {
+
+                    log("temp2 success");
+                }
+
+                time_temp2 = millis();
+            }
+
+            // hum1
+            //=================================================================
+            if (millis() > time_hum1 + time_hum1_limit)
+            {
+                DynamicJsonDocument doc_envia(1023);
+                String json_msg;
+
+                // {"device":"dispositivo-001", "name": "hum1", "data": 23}
+
+                doc_envia["Device"] = vNombrePlaca;
+                doc_envia["name"] = "hum1";
+                doc_envia["data"] = 14;
+
+                serializeJson(doc_envia, json_msg);
+                Serial.println(json_msg);
+
+                if (mqtt_client.publish(topic_hum1, json_msg.c_str(), false))
+                {
+
+                    log("hum1 success");
+                }
+
+                time_hum1 = millis();
+            }
+
+            // dist1
+            //=================================================================
+            if (millis() > time_dist1 + time_dist1_limit)
+            {
+                DynamicJsonDocument doc_envia(1023);
+                String json_msg;
+
+                // {"device":"dispositivo-001", "name": "dist1", "data": 23}
+
+                doc_envia["Device"] = vNombrePlaca;
+                doc_envia["name"] = "dist1";
+                doc_envia["data"] = 15;
+
+                serializeJson(doc_envia, json_msg);
+                Serial.println(json_msg);
+
+                if (mqtt_client.publish(topic_dist1, json_msg.c_str(), false))
+                {
+
+                    log("dist1 success");
+                }
+
+                time_dist1 = millis();
             }
 
             mqtt_client.loop();

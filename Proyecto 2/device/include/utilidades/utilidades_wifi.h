@@ -8,6 +8,5 @@
 
 void Wifi_udp_sta(void);
 void Wifi_mod(byte modos);
-void cliente_udp_sta();
 
 void conexion_wifi();

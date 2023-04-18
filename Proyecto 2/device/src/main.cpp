@@ -6,9 +6,20 @@
 #include "storage/settings.hpp"
 #include "funciones.hpp"
 
+#include "devices/select_device_onewire.hpp"
+#include "devices/select_device_ultrasonico.hpp"
+
 #include "protocol/conexion.hpp"
 #include "task.hpp"
 
+/*
+=======================================
+pin oneWire ds18b20 : 23
+
+pin ultrasonico trigPin : 18
+pin ultrasonico echoPin : 19
+=======================================
+*/
 void setup() {
 
   setCpuFrequencyMhz(FRECUENCIA_ESP32);
@@ -25,6 +36,9 @@ void setup() {
   Serial.println("----------------------------------------------");
 
   Wifi_mod(Modo_STA);
+
+  begin_devices_onewire();
+  begin_devices_sonar();
 
   begin_task();
 }

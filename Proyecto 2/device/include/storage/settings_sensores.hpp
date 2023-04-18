@@ -2,7 +2,19 @@
 void settingsReset_sensores()
 {
     //--------------------------------------------------------------------
+    strlcpy(topic_temp1, "device/temp1/set", sizeof(topic_temp1));
+    strlcpy(topic_temp2, "device/temp2/set", sizeof(topic_temp2));
+    strlcpy(topic_hum1, "device/hum1/set", sizeof(topic_hum1));
+    strlcpy(topic_dist1, "device/dist1/set", sizeof(topic_dist1));
 
+    time_temp1_limit = 1000;
+    time_temp2_limit = 1000;
+    time_hum1_limit = 1000;
+    time_dist1_limit = 1000;
+
+    nivel_agua_min = 50;
+    nivel_agua_max = 80;
+    tiempo_activa_bomba = 10000; // 10 sec
     // -------------------------------------------------------------------
 
     log("[Store] [ INFO ] Reinicio sensores");
@@ -33,6 +45,19 @@ boolean settingsRead_sensores()
 
         //--------------------------------------------------------------------
 
+        strlcpy(topic_temp1, jsonSettings["topic_temp1"], sizeof(topic_temp1));
+        strlcpy(topic_temp2, jsonSettings["topic_temp2"], sizeof(topic_temp2));
+        strlcpy(topic_hum1, jsonSettings["topic_hum1"], sizeof(topic_hum1));
+        strlcpy(topic_dist1, jsonSettings["topic_dist1"], sizeof(topic_dist1));
+
+        time_temp1_limit = jsonSettings["time_temp1_limit"];
+        time_temp2_limit = jsonSettings["time_temp2_limit"];
+        time_hum1_limit = jsonSettings["time_hum1_limit"];
+        time_dist1_limit = jsonSettings["time_dist1_limit"];
+
+        nivel_agua_min = jsonSettings["nivel_agua_min"];
+        nivel_agua_max = jsonSettings["nivel_agua_max"];
+        tiempo_activa_bomba = jsonSettings["tiempo_activa_bomba"];
         // -------------------------------------------------------------------
 
         file.close();
@@ -61,7 +86,19 @@ boolean settingsSave_sensores()
     {
 
         //--------------------------------------------------------------------
+        jsonSettings["topic_temp1"] = topic_temp1;
+        jsonSettings["topic_temp2"] = topic_temp2;
+        jsonSettings["topic_hum1"] = topic_hum1;
+        jsonSettings["topic_dist1"] = topic_dist1;
 
+        jsonSettings["time_temp1_limit"] = time_temp1_limit;
+        jsonSettings["time_temp2_limit"] = time_temp2_limit;
+        jsonSettings["time_hum1_limit"] = time_hum1_limit;
+        jsonSettings["time_dist1_limit"] = time_dist1_limit;
+
+        jsonSettings["nivel_agua_min"] = nivel_agua_min;
+        jsonSettings["nivel_agua_max"] = nivel_agua_max;
+        jsonSettings["tiempo_activa_bomba"] = tiempo_activa_bomba;
         // -------------------------------------------------------------------
 
         serializeJsonPretty(jsonSettings, file);
