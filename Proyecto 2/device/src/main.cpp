@@ -7,6 +7,7 @@
 #include "funciones.hpp"
 
 #include "protocol/conexion.hpp"
+#include "task.hpp"
 
 void setup() {
 
@@ -24,6 +25,8 @@ void setup() {
   Serial.println("----------------------------------------------");
 
   Wifi_mod(Modo_STA);
+
+  begin_task();
 }
 
 void loop() {

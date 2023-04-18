@@ -11,3 +11,8 @@ boolean settingsSave_general();
 boolean settingsRead_mqtt();
 void settingsReset_mqtt();
 boolean settingsSave_mqtt();
+
+// Storage/settings_sensores.hpp
+boolean settingsRead_sensores();
+void settingsReset_sensores();
+boolean settingsSave_sensores();

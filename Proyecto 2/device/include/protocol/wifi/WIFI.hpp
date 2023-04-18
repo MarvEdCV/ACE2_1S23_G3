@@ -67,27 +67,23 @@ void Wifi_udp_sta(void)
 void conexion_wifi()
 {
 
-              if (WiFi.status() != WL_CONNECTED && (millis() > tiempo_previo_sta + intervalWIFI_STA))
+       if (WiFi.status() != WL_CONNECTED && (millis() > tiempo_previo_sta + intervalWIFI_STA))
+       {
+
+              WiFi.disconnect(true);
+              WiFi.reconnect();
+
+              log("[ INFO ] reconectar");
+
+              cont_out++;
+              log("[WIFI] intentos de conexion: " + String(cont_out) + "/" + String(reconexion_intentos));
+
+              if (cont_out >= reconexion_intentos)
               {
-
-                     WiFi.disconnect(true);
-                     WiFi.reconnect();
-
-                     log("[ INFO ] reconectar");
-
-                     cont_out++;
-                     log("[WIFI] intentos de conexion: " + String(cont_out) + "/" + String(reconexion_intentos));
-
-                     if (cont_out >= reconexion_intentos)
-                     {
-                            cont_out = 0;
-                            
-                            Wifi_udp_sta();
-                     }
-
-                     tiempo_previo_sta = millis();
-              } 
-              else 
+                     cont_out = 0;
+                     Wifi_udp_sta();
+              }
 
               tiempo_previo_sta = millis();
+       }
 }

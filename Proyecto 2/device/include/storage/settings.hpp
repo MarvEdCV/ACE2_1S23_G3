@@ -4,6 +4,8 @@
 #include "settings_general.hpp"
 #include "settings_mqtt.hpp"
 
+#include "settings_sensores.hpp"
+
 void inicia_setting()
 {
     // Iniciar el SPIFFS
@@ -34,6 +36,16 @@ void inicia_setting()
     }
     else
         log("[Store] [/system/settings_mqtt.json] success");
+
+    // Leer el Archivo
+    // [settings_sensores.json]
+    if (!settingsRead_sensores())
+    {
+        settingsSave_sensores();
+        vTaskDelay(100);
+    }
+    else
+        log("[Store] [/system/settings_sensores.json] success");
 
     log("[Store] Iniciamos datos desde spiffs");
 }

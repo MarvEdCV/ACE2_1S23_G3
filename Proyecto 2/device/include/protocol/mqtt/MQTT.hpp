@@ -44,8 +44,6 @@ void inicia_mqtt()
 
     String _client = mqtt_clientId;
     _client += String(random(0xffff), HEX);
-    
-    log("cliente");
 
     sprintf(topicWill, "%s/%s/status", user_mqtt.c_str(), vNombrePlaca.c_str());
 
@@ -62,8 +60,9 @@ void reconectar_mqtt()
     {
 
         String _client = mqtt_clientId;
-
         _client += String(random(0xffff), HEX);
+
+        sprintf(topicWill, "%s/%s/status", user_mqtt.c_str(), vNombrePlaca.c_str());
 
         Serial.println("Attempting MQTT connection...");
         if (mqtt_client.connect(mqtt_clientId.c_str(), user_mqtt.c_str(), pass_mqtt.c_str(), topicWill, willQos, willRetain, willMsg, cleanSession))
