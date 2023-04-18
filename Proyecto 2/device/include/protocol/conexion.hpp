@@ -25,17 +25,16 @@ void envia_sensores_mqtt()
 
                 // {"device":"dispositivo-001", "name": "temp1", "data": 23}
 
-                doc_envia["Device"] = vNombrePlaca;
+                doc_envia["device"] = vNombrePlaca;
                 doc_envia["name"] = "temp1";
-                doc_envia["data"] = 12;
+                doc_envia["data"] = temperatura1_read;
 
                 serializeJson(doc_envia, json_msg);
-                Serial.println(json_msg);
 
                 if (mqtt_client.publish(topic_temp1, json_msg.c_str(), false))
                 {
-
-                    log("temp1 success");
+                    Serial.println(json_msg);
+                    // log("temp1 success");
                 }
 
                 time_temp1 = millis();
@@ -50,17 +49,16 @@ void envia_sensores_mqtt()
 
                 // {"device":"dispositivo-001", "name": "temp2", "data": 23}
 
-                doc_envia["Device"] = vNombrePlaca;
+                doc_envia["device"] = vNombrePlaca;
                 doc_envia["name"] = "temp2";
-                doc_envia["data"] = 13;
+                doc_envia["data"] = temperatura2_read;
 
                 serializeJson(doc_envia, json_msg);
-                Serial.println(json_msg);
 
                 if (mqtt_client.publish(topic_temp2, json_msg.c_str(), false))
                 {
-
-                    log("temp2 success");
+                    Serial.println(json_msg);
+                    // log("temp2 success");
                 }
 
                 time_temp2 = millis();
@@ -75,18 +73,19 @@ void envia_sensores_mqtt()
 
                 // {"device":"dispositivo-001", "name": "hum1", "data": 23}
 
-                doc_envia["Device"] = vNombrePlaca;
+                doc_envia["device"] = vNombrePlaca;
                 doc_envia["name"] = "hum1";
                 doc_envia["data"] = 14;
 
                 serializeJson(doc_envia, json_msg);
-                Serial.println(json_msg);
+                // Serial.println(json_msg);
+                /*
+                                if (mqtt_client.publish(topic_hum1, json_msg.c_str(), false))
+                                {
 
-                if (mqtt_client.publish(topic_hum1, json_msg.c_str(), false))
-                {
-
-                    log("hum1 success");
-                }
+                                    log("hum1 success");
+                                }
+                */
 
                 time_hum1 = millis();
             }
@@ -100,18 +99,19 @@ void envia_sensores_mqtt()
 
                 // {"device":"dispositivo-001", "name": "dist1", "data": 23}
 
-                doc_envia["Device"] = vNombrePlaca;
+                doc_envia["device"] = vNombrePlaca;
                 doc_envia["name"] = "dist1";
                 doc_envia["data"] = 15;
 
                 serializeJson(doc_envia, json_msg);
-                Serial.println(json_msg);
+                // Serial.println(json_msg);
+                /*
+                                if (mqtt_client.publish(topic_dist1, json_msg.c_str(), false))
+                                {
 
-                if (mqtt_client.publish(topic_dist1, json_msg.c_str(), false))
-                {
-
-                    log("dist1 success");
-                }
+                                    log("dist1 success");
+                                }
+                */
 
                 time_dist1 = millis();
             }

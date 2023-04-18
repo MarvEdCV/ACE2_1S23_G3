@@ -94,20 +94,6 @@ void Task1code(void *pvParameters)
   for (;;)
   {
 
-    delay(1);
-  }
-}
-#endif
-
-#if define_task >= 2
-// Task2code: blinks an LED every 700 ms
-void Task2code(void *pvParameters)
-{
-  // Serial.print("Task2 running on core ");
-  // Serial.println(xPortGetCoreID());
-
-  for (;;)
-  {
     if (validar_spiffs_general == true)
     {
 
@@ -153,6 +139,23 @@ void Task2code(void *pvParameters)
 
     delay(1);
   }
+}
+#endif
+
+#if define_task >= 2
+// Task2code: blinks an LED every 700 ms
+void Task2code(void *pvParameters)
+{
+  // Serial.print("Task2 running on core ");
+  // Serial.println(xPortGetCoreID());
+
+  for (;;)
+  {
+
+    read_sensores_temperatura();
+  }
+
+  delay(1);
 }
 #endif
 

@@ -12,3 +12,6 @@ char topic_dist1[35];
 int nivel_agua_min;
 int nivel_agua_max;
 long tiempo_activa_bomba;
+
+float temperatura1_read;
+float temperatura2_read;

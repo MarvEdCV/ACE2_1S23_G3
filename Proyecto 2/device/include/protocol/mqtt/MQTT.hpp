@@ -6,9 +6,11 @@ PubSubClient mqtt_client(mqttClient);
 
 void callback(char *topic, byte *message, unsigned int length)
 {
-    Serial.print("Message arrived on topic: ");
+    DynamicJsonDocument doc_recibe(1024);
+
+    Serial.print("Topic: ");
     Serial.print(topic);
-    Serial.print(". Message: ");
+    Serial.print(" : Msg: ");
     String messageTemp;
 
     for (int i = 0; i < length; i++)
@@ -18,16 +20,19 @@ void callback(char *topic, byte *message, unsigned int length)
     }
     Serial.println();
 
-    if (String(topic) == "backend/status")
+    DeserializationError error = deserializeJson(doc_recibe, messageTemp);
+    if (error)
     {
-        if (messageTemp == "ON")
+        log("Error json");
+        return;
+    }
+    {
+        if (doc_recibe["Status"])
         {
-            Serial.println("on");
-        }
 
-        if (messageTemp == "OFF")
-        {
-            Serial.println("off");
+            String _status = doc_recibe["Status"];
+
+            Serial.println(_status);
         }
     }
 }
@@ -45,7 +50,7 @@ void inicia_mqtt()
     String _client = mqtt_clientId;
     _client += String(random(0xffff), HEX);
 
-    sprintf(topicWill, "%s/%s/status", user_mqtt.c_str(), vNombrePlaca.c_str());
+    sprintf(topicWill, "%s/status", user_mqtt.c_str());
 
     if (mqtt_client.connect(_client.c_str(), user_mqtt.c_str(), pass_mqtt.c_str(), topicWill, willQos, willRetain, willMsg, cleanSession))
     {
@@ -62,7 +67,7 @@ void reconectar_mqtt()
         String _client = mqtt_clientId;
         _client += String(random(0xffff), HEX);
 
-        sprintf(topicWill, "%s/%s/status", user_mqtt.c_str(), vNombrePlaca.c_str());
+        sprintf(topicWill, "%s/status", user_mqtt.c_str());
 
         Serial.println("Attempting MQTT connection...");
         if (mqtt_client.connect(mqtt_clientId.c_str(), user_mqtt.c_str(), pass_mqtt.c_str(), topicWill, willQos, willRetain, willMsg, cleanSession))

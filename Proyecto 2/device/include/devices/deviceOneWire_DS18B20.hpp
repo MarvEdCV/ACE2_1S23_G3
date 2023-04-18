@@ -1,7 +1,7 @@
 /* platformio.ini
-lib_deps = 
-	milesburton/DallasTemperature@^3.9.1
-	paulstoffregen/OneWire@^2.3.5
+lib_deps =
+  milesburton/DallasTemperature@^3.9.1
+  paulstoffregen/OneWire@^2.3.5
 */
 
 // First we include the libraries
@@ -24,9 +24,10 @@ DallasTemperature sensors(&oneWire);
 /********************************************************************/
 DeviceAddress tempDeviceAddress; // We'll use this variable to store a found device address
 
-void begin_ds18b20(){
+void begin_ds18b20()
+{
 
-    sensors.begin();    // initialize the DS18B20 sensor
+  sensors.begin(); // initialize the DS18B20 sensor
 }
 
 void begin_sensor()
@@ -46,7 +47,6 @@ float readDSTemperatureC(uint8_t index)
 
   sensors.requestTemperatures();
   float teC = sensors.getTempCByIndex(index);
-  contador_mediciones_sensor++;
 
   // float tempF = sensors.getTempFByIndex(index);
   // TEMP = tempC;
@@ -61,4 +61,38 @@ float readDSTemperatureC(uint8_t index)
   }
 
   return TEMP_C;
+}
+
+void read_sensores_temperatura()
+{
+
+  sensors.requestTemperaturesByIndex(0);
+  float temperatura1 = sensors.getTempCByIndex(0);
+  if (temperatura1 != DEVICE_DISCONNECTED_C)
+  {
+    temperatura1_read = temperatura1;
+
+    // Serial.print("Sensor 1 - Temperatura: ");
+    // Serial.print(temperatura1_read);
+    // Serial.println(" ºC");
+  }
+  else
+  {
+    // Serial.println("Sensor 1 - No se pudo leer la temperatura");
+  }
+
+  sensors.requestTemperaturesByIndex(1);
+  float temperatura2 = sensors.getTempCByIndex(1);
+  if (temperatura2 != DEVICE_DISCONNECTED_C)
+  {
+    temperatura2_read = temperatura2;
+
+    // Serial.print("Sensor 2 - Temperatura: ");
+    // Serial.print(temperatura2_read);
+    // Serial.println(" ºC");
+  }
+  else
+  {
+    // Serial.println("Sensor 2 - No se pudo leer la temperatura");
+  }
 }
