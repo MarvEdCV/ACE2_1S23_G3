@@ -1,5 +1,5 @@
 //ds18b20
-#define ONE_WIRE_BUS 23
+#define ONE_WIRE_BUS 32
 
 //--------------------------------
 

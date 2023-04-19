@@ -35,11 +35,11 @@ void envia_sensores_mqtt()
 
                 serializeJson(doc_envia, json_msg);
 
-                if (mqtt_client.publish(topic_temp1, json_msg.c_str(), false))
-                {
-                    Serial.println(json_msg);
+                //if (mqtt_client.publish(topic_temp1, json_msg.c_str(), false))
+                //{
+                //    Serial.println(json_msg);
                     // log("temp1 success");
-                }
+                //}
 
                 time_temp1 = millis();
 
@@ -65,11 +65,11 @@ void envia_sensores_mqtt()
 
                 serializeJson(doc_envia, json_msg);
 
-                if (mqtt_client.publish(topic_temp2, json_msg.c_str(), false))
-                {
-                    Serial.println(json_msg);
+                //if (mqtt_client.publish(topic_temp2, json_msg.c_str(), false))
+                //{
+                //    Serial.println(json_msg);
                     // log("temp2 success");
-                }
+                //}
 
                 time_temp2 = millis();
 

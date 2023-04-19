@@ -14,13 +14,17 @@
 
 /*
 ======================================
-pin oneWire ds18b20 : 23
+pin oneWire ds18b20 : 32
 
 pin ultrasonico trigPin : 18
 pin ultrasonico echoPin : 19
 ======================================
 */
-void setup() {
+void setup()
+{
+
+  pinMode(39, INPUT);
+  pinMode(23, OUTPUT);
 
   setCpuFrequencyMhz(FRECUENCIA_ESP32);
   delay(TIME_INICIO);
@@ -43,9 +47,33 @@ void setup() {
   begin_task();
 }
 
-void loop() {
+long time_humedad;
+void loop()
+{
 
   conexion_wifi();
   envia_sensores_mqtt();
 
+  if (millis() > time_humedad + 200)
+  {
+
+    int almacenador = analogRead(39);
+    int valor = (almacenador / 10.23); // Valor de humedad
+
+    Serial.println(valor);
+
+    if (valor > 300)
+    {
+
+      digitalWrite(23, LOW);
+    }
+    else
+    {
+
+      digitalWrite(23, HIGH);
+      delay(300000);
+    }
+
+    time_humedad = millis();
+  }
 }
