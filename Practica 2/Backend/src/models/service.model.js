@@ -372,6 +372,7 @@ class ServiceModel extends Database {
 
 
     async penalty(typePenalty, time, cycleNumber) {
+        time = parseFloat(time);
         // Si es segundo, tercer o cuarto ciclo se obtiene el ultimo pomodoro del usuario
         const lastPomodoro = await this.lastPomodoro();
         const lastPomodoroId = lastPomodoro[0].pomodoro_id;
