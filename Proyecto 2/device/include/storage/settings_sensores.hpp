@@ -15,6 +15,8 @@ void settingsReset_sensores()
     nivel_agua_min = 50;
     nivel_agua_max = 80;
     tiempo_activa_bomba = 10000; // 10 sec
+
+    altura_del_tanque = 100; //centimetros
     // -------------------------------------------------------------------
 
     log("[Store] [ INFO ] Reinicio sensores");
@@ -58,6 +60,8 @@ boolean settingsRead_sensores()
         nivel_agua_min = jsonSettings["nivel_agua_min"];
         nivel_agua_max = jsonSettings["nivel_agua_max"];
         tiempo_activa_bomba = jsonSettings["tiempo_activa_bomba"];
+
+        altura_del_tanque = jsonSettings["altura_del_tanque"];
         // -------------------------------------------------------------------
 
         file.close();
@@ -99,6 +103,8 @@ boolean settingsSave_sensores()
         jsonSettings["nivel_agua_min"] = nivel_agua_min;
         jsonSettings["nivel_agua_max"] = nivel_agua_max;
         jsonSettings["tiempo_activa_bomba"] = tiempo_activa_bomba;
+
+        jsonSettings["altura_del_tanque"] = altura_del_tanque;
         // -------------------------------------------------------------------
 
         serializeJsonPretty(jsonSettings, file);

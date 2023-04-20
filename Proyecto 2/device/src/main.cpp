@@ -16,9 +16,10 @@
 /*
 ======================================
 pin oneWire ds18b20 : 32
-
+pin humedad : 39
 pin ultrasonico trigPin : 19
 pin ultrasonico echoPin : 18
+
 ======================================
 */
 void setup()
@@ -50,9 +51,8 @@ void loop()
 {
 
   conexion_wifi();
-  envia_sensores_mqtt();
-
   get_humedad();
 
+  envia_sensores_mqtt();
   sensores_test();
 }

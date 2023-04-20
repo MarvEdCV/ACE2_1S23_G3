@@ -66,35 +66,41 @@ float readDSTemperatureC(uint8_t index)
 void read_sensores_temperatura()
 {
 
-  sensors.requestTemperaturesByIndex(0);
-  float temperatura1 = sensors.getTempCByIndex(0);
-  if (temperatura1 != DEVICE_DISCONNECTED_C)
+  if (millis() > time_temperatura + 100)
   {
-    temperatura1_read = temperatura1;
 
-    // Serial.print("Sensor 1 - Temperatura: ");
-    // Serial.print(temperatura1_read);
-    // Serial.println(" ºC");
-  }
-  else
-  {
-    // Serial.println("Sensor 1 - No se pudo leer la temperatura");
-  }
+    sensors.requestTemperaturesByIndex(0);
+    float temperatura1 = sensors.getTempCByIndex(0);
+    if (temperatura1 != DEVICE_DISCONNECTED_C)
+    {
+      temperatura1_read = temperatura1;
 
-  delay(10);
+      // Serial.print("Sensor 1 - Temperatura: ");
+      // Serial.print(temperatura1_read);
+      // Serial.println(" ºC");
+    }
+    else
+    {
+      // Serial.println("Sensor 1 - No se pudo leer la temperatura");
+    }
 
-  sensors.requestTemperaturesByIndex(1);
-  float temperatura2 = sensors.getTempCByIndex(1);
-  if (temperatura2 != DEVICE_DISCONNECTED_C)
-  {
-    temperatura2_read = temperatura2;
+    delay(10);
 
-    // Serial.print("Sensor 2 - Temperatura: ");
-    // Serial.print(temperatura2_read);
-    // Serial.println(" ºC");
-  }
-  else
-  {
-    // Serial.println("Sensor 2 - No se pudo leer la temperatura");
+    sensors.requestTemperaturesByIndex(1);
+    float temperatura2 = sensors.getTempCByIndex(1);
+    if (temperatura2 != DEVICE_DISCONNECTED_C)
+    {
+      temperatura2_read = temperatura2;
+
+      // Serial.print("Sensor 2 - Temperatura: ");
+      // Serial.print(temperatura2_read);
+      // Serial.println(" ºC");
+    }
+    else
+    {
+      // Serial.println("Sensor 2 - No se pudo leer la temperatura");
+    }
+
+    time_temperatura = millis();
   }
 }

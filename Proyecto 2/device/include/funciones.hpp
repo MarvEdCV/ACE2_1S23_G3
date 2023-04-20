@@ -120,10 +120,12 @@ void sensores_test()
     {
 
         log("=============================================================");
-        log("Sensor temp[1] : " + String(temperatura1_read));
-        log("Sensor temp[2] : " + String(temperatura2_read));
-        log("Sensor humedad[1] : " + String(lectura_humedad));
-        log("Sensor tanque[1] : " + String(distanceCm));
+        log("Sensor temperatura[1] : " + String(temperatura1_read));
+        log("Sensor temperatura[2] : " + String(temperatura2_read));
+        // log("Sensor humedad[1] : " + String(lectura_humedad));
+        log("Sensor humedad[1] :" + String(porcentajehum) + "%");
+        // log("Sensor ultrasonico[1] : " + String(distanceCm) + "cm");
+        log("Sensor ultrasonico[1] : " + String(porcentajedist) + "%");
         log("=============================================================");
         time_sensor_test = millis();
     }
