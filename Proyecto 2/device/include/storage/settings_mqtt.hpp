@@ -11,7 +11,7 @@ void settingsReset_mqtt()
     strlcpy(host_mqtt, "54.183.38.85", sizeof(host_mqtt));
     strlcpy(willMsg, "{'Status':'OFF'}", sizeof(willMsg));
     strlcpy(backMsg, "{'Status':'ON'}", sizeof(backMsg));
-    mqtt_clientId = "device_";
+    mqtt_clientId = "device_esp_";
     user_mqtt = "device";
     pass_mqtt = "public";
     port_mqtt = 1883;
@@ -20,11 +20,8 @@ void settingsReset_mqtt()
     willRetain = false;
     cleanSession = true;
     mqtt_keepalive = 60;
-    mqtt_sockettimeout = 60;
-    mqtt_buffer = 512;
-
-    // MQTT
-    intervalWIFI_MQTT = 30000;
+    mqtt_sockettimeout = 30;
+    mqtt_buffer = 2048;
 
     log("[Store] [ INFO ] Reinicio mqtt"); 
     vTaskDelay(100);
@@ -77,7 +74,6 @@ boolean settingsRead_mqtt()
         mqtt_sockettimeout = jsonSettings["mqtt_sockettimeout"];
         mqtt_buffer = jsonSettings["mqtt_buffer"];
 
-        intervalWIFI_MQTT = jsonSettings["intervalWIFI_MQTT"];
         // -------------------------------------------------------------------
 
         file.close();
@@ -122,8 +118,6 @@ boolean settingsSave_mqtt()
         jsonSettings["mqtt_sockettimeout"] = mqtt_sockettimeout;
         jsonSettings["mqtt_buffer"] = mqtt_buffer;
 
-        // MQTT
-        jsonSettings["intervalWIFI_MQTT"] = intervalWIFI_MQTT;
         // -------------------------------------------------------------------
 
         serializeJsonPretty(jsonSettings, file);

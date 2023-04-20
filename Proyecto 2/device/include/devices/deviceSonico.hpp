@@ -34,6 +34,9 @@ void get_sonar()
         // Serial.print("Distance (inch): ");
         // Serial.println(distanceInch);
 
+        if (altura_del_tanque < 2)
+            altura_del_tanque = 2;
+
         porcentajedist = map(distanceCm, altura_del_tanque, 1, 0, 100);
 
         if (porcentajedist > 100)

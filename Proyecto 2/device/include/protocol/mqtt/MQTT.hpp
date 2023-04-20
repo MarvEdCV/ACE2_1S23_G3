@@ -56,6 +56,14 @@ void inicia_mqtt()
     {
         Serial.println("connected to MQTT");
         mqtt_client.subscribe("backend/status", suscripcionQos);
+        mqtt_client.subscribe(sub_config, suscripcionQos);
+
+        if (mqtt_client.publish(topicWill, backMsg, false))
+        {
+            Serial.println(backMsg);
+        }
+        else
+            log("status on success");
     }
 }
 
@@ -72,8 +80,16 @@ void reconectar_mqtt()
         Serial.println("Attempting MQTT connection...");
         if (mqtt_client.connect(mqtt_clientId.c_str(), user_mqtt.c_str(), pass_mqtt.c_str(), topicWill, willQos, willRetain, willMsg, cleanSession))
         {
-            Serial.println("connected");
+            Serial.println("connected to MQTT");
             mqtt_client.subscribe("backend/status", suscripcionQos);
+            mqtt_client.subscribe(sub_config, suscripcionQos);
+
+            if (mqtt_client.publish(topicWill, backMsg, false))
+            {
+                Serial.println(backMsg);
+            }
+            else
+                log("status on success");
         }
         else
         {

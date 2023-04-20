@@ -15,6 +15,7 @@
 
 /*
 ======================================
+
 pin oneWire ds18b20 : 32
 pin humedad : 39
 pin ultrasonico trigPin : 19

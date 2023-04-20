@@ -4,11 +4,17 @@ long time_temp2, time_temp2_limit;
 long time_hum1, time_hum1_limit;
 long time_dist1, time_dist1_limit;
 
+long time_sensores_get;
+long time_all_limit;
+
 // topicos a publicar
 char topic_temp1[35];
 char topic_temp2[35];
 char topic_hum1[35];
 char topic_dist1[35];
+
+char topic_all[35];
+char sub_config[35];
 
 //bomba
 long tiempo_activa_bomba;

@@ -16,9 +16,6 @@ int mqtt_keepalive;
 int mqtt_sockettimeout;
 int mqtt_buffer;
 
-long intervalWIFI_MQTT;
-long time_send_mqtt;
-
 char topic[75];
 char topicWill[75];
 
