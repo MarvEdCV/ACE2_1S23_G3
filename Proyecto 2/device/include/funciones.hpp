@@ -96,7 +96,8 @@ String split(String data, char separator, int index)
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
 
-String getMacAddress() {
+String getMacAddress()
+{
     uint8_t baseMac[6];
     // Get MAC address for WiFi station
     esp_read_mac(baseMac, ESP_MAC_WIFI_STA);
@@ -110,4 +111,20 @@ String getMacAddress() {
 String deviceID()
 {
     return String(platform()) + hexStr(ESP.getEfuseMac()) + String(idUnique());
+}
+
+void sensores_test()
+{
+
+    if (millis() > time_sensor_test + 1000)
+    {
+
+        log("=============================================================");
+        log("Sensor temp[1] : " + String(temperatura1_read));
+        log("Sensor temp[2] : " + String(temperatura2_read));
+        log("Sensor humedad[1] : " + String(lectura_humedad));
+        log("Sensor tanque[1] : " + String(distanceCm));
+        log("=============================================================");
+        time_sensor_test = millis();
+    }
 }

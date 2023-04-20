@@ -81,6 +81,8 @@ void read_sensores_temperatura()
     // Serial.println("Sensor 1 - No se pudo leer la temperatura");
   }
 
+  delay(10);
+
   sensors.requestTemperaturesByIndex(1);
   float temperatura2 = sensors.getTempCByIndex(1);
   if (temperatura2 != DEVICE_DISCONNECTED_C)

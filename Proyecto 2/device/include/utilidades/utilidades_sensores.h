@@ -4,7 +4,16 @@
 //--------------------------------
 
 //ultrasonico
-#define trigPin 18
-#define echoPin 19
+#define trigPin 19
+#define echoPin 18
+
+//--------------------------------
+
+//humedad
+#define HUMEDAD 39
+
+//--------------------------------
+//bomba agua
+#define BOMBA 23
 
 //--------------------------------

@@ -8,6 +8,7 @@
 
 #include "devices/select_device_onewire.hpp"
 #include "devices/select_device_ultrasonico.hpp"
+#include "devices/select_device_humedad.hpp"
 
 #include "protocol/conexion.hpp"
 #include "task.hpp"
@@ -16,16 +17,13 @@
 ======================================
 pin oneWire ds18b20 : 32
 
-pin ultrasonico trigPin : 18
-pin ultrasonico echoPin : 19
+pin ultrasonico trigPin : 19
+pin ultrasonico echoPin : 18
 ======================================
 */
 void setup()
 {
-
-  pinMode(39, INPUT);
-  pinMode(23, OUTPUT);
-
+  pinMode(BOMBA, OUTPUT);
   setCpuFrequencyMhz(FRECUENCIA_ESP32);
   delay(TIME_INICIO);
 
@@ -43,37 +41,18 @@ void setup()
 
   begin_devices_onewire();
   begin_devices_sonar();
+  begin_devices_humedad();
 
   begin_task();
 }
 
-long time_humedad;
 void loop()
 {
 
   conexion_wifi();
   envia_sensores_mqtt();
 
-  if (millis() > time_humedad + 200)
-  {
+  get_humedad();
 
-    int almacenador = analogRead(39);
-    int valor = (almacenador / 10.23); // Valor de humedad
-
-    Serial.println(valor);
-
-    if (valor > 300)
-    {
-
-      digitalWrite(23, LOW);
-    }
-    else
-    {
-
-      digitalWrite(23, HIGH);
-      delay(300000);
-    }
-
-    time_humedad = millis();
-  }
+  sensores_test();
 }

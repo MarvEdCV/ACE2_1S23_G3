@@ -8,7 +8,7 @@ size_t content_len;
 #define U_PART U_SPIFFS
 // -------------------------------------------------------------------
 
-#define define_task 2
+#define define_task 3
 
 #define FRECUENCIA_ESP32 240   // Mhz
 #define TIME_INICIO 100        // TIEMPO DE INICIO PROGRAMACION

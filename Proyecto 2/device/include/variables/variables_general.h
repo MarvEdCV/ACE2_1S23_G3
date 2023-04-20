@@ -17,3 +17,5 @@ String device_id;
 int cont_out;
 
 long tiempo_previo_sta;
+
+long time_sensor_test;

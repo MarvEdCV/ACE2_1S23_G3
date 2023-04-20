@@ -169,6 +169,8 @@ void Task3code(void *pvParameters)
   for (;;)
   {
 
+    get_sonar();
+
     delay(1);
   }
 }

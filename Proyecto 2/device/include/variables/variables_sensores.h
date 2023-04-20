@@ -15,3 +15,16 @@ long tiempo_activa_bomba;
 
 float temperatura1_read;
 float temperatura2_read;
+
+//sonar
+long duration;
+float distanceCm;
+float distanceInch;
+
+long time_sensor;
+
+//humedad
+int porcentajehum;
+float lectura_humedad;
+
+long time_humedad;

@@ -9,3 +9,5 @@ String platform();
 String idUnique();
 String split(String data, char separator, int index);
 String deviceID();
+
+void sensores_test();
