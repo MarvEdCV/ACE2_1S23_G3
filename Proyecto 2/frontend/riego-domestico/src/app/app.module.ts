@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './dashboard/layout/layout.component';
 import { NgChartsModule } from 'ng2-charts';
+import { GraficasComponent } from './graficas/graficas.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
+    GraficasComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
