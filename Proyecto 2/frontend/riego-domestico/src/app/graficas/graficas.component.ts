@@ -36,6 +36,34 @@ export class GraficasComponent {
     { timestamp: '2023-04-20T22:00:00.000Z', datos: 20 },
     { timestamp: '2023-04-20T23:00:00.000Z', datos: 19 }
   ];
+
+  dataBomba = [
+    { timestamp: '2023-04-20T00:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T01:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T02:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T03:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T04:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T05:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T06:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T07:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T08:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T09:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T10:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T11:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T12:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T13:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T14:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T15:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T16:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T17:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T18:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T19:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T20:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T21:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T22:00:00.000Z', datos: 0 },
+    { timestamp: '2023-04-20T23:00:00.000Z', datos: 1 },
+    { timestamp: '2023-04-20T23:30:00.000Z', datos: 0 }
+  ];
   private newLabel? = 'New label';
   startDate!: string;
   startTime!: string;
@@ -66,25 +94,41 @@ export class GraficasComponent {
 
 
   public lineChartData5: ChartConfiguration['data'] ={
-    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    labels: this.dataBomba.map((item) => item.timestamp),
   datasets: [{
     label: 'Activación de la bomba de agua',
-    data: [0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0],
-    fill: false,
+    data: this.dataBomba.map((item) => item.datos),
     borderColor: 'rgb(75, 192, 192)',
-    tension: 0.1
+    backgroundColor: '#b8f1a5',
+    pointBackgroundColor: 'rgba(148,159,177,1)',
+    pointBorderColor: '#fff',
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+    fill: 'origin',
+    tension: 0.6
   }]}
 
-  /*
+
   public lineChartOptions5: ChartConfiguration['options'] ={
-      scales: {
-        y: {
-          ticks: {
-            suggestedMin: true
-          }
+    scales:{
+      x:{
+        title:{
+          display:true,
+          text: "Fecha y Hora"
+        }
+      },
+      y:{
+        title:{
+          display: true,
+          text: "Activada/Desactivada"
+        },
+        ticks:{
+          stepSize:1
         }
       }
-  }*/
+    }
+  }
+
 
 
   private generarData(data:{timestamp: string; datos: number}[],tituloY: string,borderColor:string,backgrounColor:string):ChartConfiguration['data']{
