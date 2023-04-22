@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { BaseChartDirective } from 'ng2-charts';
+import { Component } from '@angular/core';
+import { TemperaturaService } from 'src/app/services/temperatura.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,78 +7,25 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent {
-
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
-  constructor(){ }
-
-
-  options = {
-    scales:{
-      x:{
-
-        grid: {
-          display: false
-        },
-        //border: {
-        //  display: false
-        //},
-        //ticks: {
-        //  display: false
-        //}
-      },
-      y:{
-        suggestedMin: 0, 
-        suggestedMax: 200,
-        grid: {
-          display: false
-        },
-        border: {
-          display: false
-        },
-        ticks: {
-          display: false
-        }
-      }
+  
+  public temperaturas = {
+    externa: {
+      nombre: 'Temperatura externa',
+      data: 0
+    }, 
+    interna:{
+      nombre: 'Temperatura interna',
+      data: 0
     }
   }
 
-
-  public externalTemperatureGraph = {
-    //type: "line",
-    data: {
-      labels: ['Temperatura externa'],
-      datasets: [
-        {
-          label: 'Temperatura externa jiji',
-          data: [100], 
-          borderRadius: 5, 
-          barPercentage: 0.15, 
-          backgroundColor: ['rgba(75, 192, 192, 0.8)']
-        }
-      ], 
-    },
-    options: this.options
-  };
-
-  
-
-  public changeData():void{
-
-    console.log(this.chart);
-    let contador = 100;
-    let c = 1;
+  constructor(private temperaturaService: TemperaturaService){
+    
     setInterval( ()=>{
-      console.log(c);
-      c = c + 1;
-      this.externalTemperatureGraph.data.labels[0] = `Temperatura Externa (${c} ${String.fromCharCode(186)}C)`;
-      this.externalTemperatureGraph.data.datasets[0].data = [ contador];
-      contador = contador - 2.5;
+      let lecturaTemperaturas = this.temperaturaService.getTemperaturas();
 
-      this.chart?.update();
-    }, 200);
-
+      this.temperaturas.externa.data = lecturaTemperaturas.temperaturaExterna;
+      this.temperaturas.interna.data = lecturaTemperaturas.temperaturaInterna;
+    }, 1000);
   }
-  
-
 }

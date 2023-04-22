@@ -1,33 +1,29 @@
 
 <div class="container">
     <h3> Dashboard sistema de riego</h3>
-    <button (click)="changeData()"> clickeame</button>
+
     <div class="border border-dark">
         <div class="row">
             <div class="col-6">
-                <div class="chart-wrapper">
-                    <canvas baseChart type="bar" height="200"
-                    [data]="externalTemperatureGraph.data"
-                    [options]="externalTemperatureGraph.options">
-                    </canvas>
-                </div>
+
+                <app-temp-externa [nombreGrafica]="temperaturas.externa.nombre" 
+                    [temperaturaActual]="this.temperaturas.externa.data">
+                </app-temp-externa>
             </div>
             <div class="col-6">
-                <canvas baseChart type="bar" [data]="externalTemperatureGraph.data"></canvas>
+                <app-temp-externa [nombreGrafica]="temperaturas.interna.nombre"
+                    [temperaturaActual]="this.temperaturas.interna.data">
+                </app-temp-externa>
                 
             </div>
         </div>
     
         <div class="row">
             <div class="col-6">
-                <div class="chart-wrapper">
-                    <canvas baseChart type="bar" 
-                    [data]="externalTemperatureGraph.data"
-                    [options]="externalTemperatureGraph.options"></canvas>
-                </div>
+                grafica humedad
             </div>
             <div class="col-6">
-                holi4
+                grafica porcentaje de agua
             </div>
         </div>
     </div>
