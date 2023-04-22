@@ -7,6 +7,8 @@ import { LayoutComponent } from './dashboard/layout/layout.component';
 import { NgChartsModule } from 'ng2-charts';
 import { GraficasComponent } from './graficas/graficas.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
     NgChartsModule
   ],
   providers: [],
