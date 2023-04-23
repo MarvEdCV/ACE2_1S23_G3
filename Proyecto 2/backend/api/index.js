@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //express routes
 app.use("/api/v1/", require("./routes/sensores.js"));
+app.use("/api/v1/", require("./routes/graficas.js"));
 
 app.listen(port, host, function () {
   console.log("Server ok".green);
