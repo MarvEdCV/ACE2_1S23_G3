@@ -36,6 +36,32 @@ pool.getConnection(function (err, connection) {
     console.log("DB MQTT ok".green);
   }
 
+  // Función para reconectar
+  const handleDisconnect = () => {
+    console.log("Lost connection to database, trying to reconnect...".red);
+    pool = createPool(config);
+    setTimeout(() => {
+      pool.getConnection((err, connection) => {
+        if (err) {
+          handleDisconnect();
+        } else {
+          console.log("Database reconnected!".green);
+          connection.release();
+        }
+      });
+    }, 2000); // tiempo de espera antes de intentar la reconexión
+  };
+
+  // Manejador de eventos de error del pool
+  pool.on("error", (err) => {
+    console.error("Database error: ", err);
+    if (err.code === "PROTOCOL_CONNECTION_LOST") {
+      handleDisconnect();
+    } else {
+      throw err;
+    }
+  });
+
   return;
 });
 
