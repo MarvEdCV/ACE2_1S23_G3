@@ -1,0 +1,19 @@
+{
+    "admin/admin":
+    {
+        "STA/NAME/PASS": ["SSID", "PASS"],
+        "STA/NAME": "SSID",
+        "STA/PASS": "PASS",
+        "DEVICE/IP/STA": true,
+        "DEVICE/NAME": "DEVICE NAME",
+
+        "DEVICE/MCLR": true,
+        "APP/RESET": true,
+    
+        "MQTT/HOST": "54.183.38.85",          
+        "MQTT/PORT": 1883,                       
+        "MQTT/QOS": 0,                           
+        "MQTT/CLEANS": true,                     
+        "MQTT/KEEP": 60
+    }
+}

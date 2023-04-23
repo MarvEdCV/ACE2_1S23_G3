@@ -32,6 +32,12 @@ void callback(char *topic, byte *message, unsigned int length)
 
             String _status = doc_recibe["Status"];
 
+            if (_status == "ON")
+                digitalWrite(2, HIGH);
+
+            if (_status == "OFF")
+                digitalWrite(2, LOW);
+
             Serial.println(_status);
         }
     }

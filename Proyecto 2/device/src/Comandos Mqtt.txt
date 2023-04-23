@@ -1,0 +1,5 @@
+{"admin/admin":{"MQTT/HOST": "54.183.38.85"}}               ;Mqtt broker
+{"admin/admin":{"MQTT/PORT": 1883}}                         ;Mqtt port
+{"admin/admin":{"MQTT/QOS": 0}}                             ;Calidad del servicio
+{"admin/admin":{"MQTT/CLEANS": true}}                       ;Inicia en limpio
+{"admin/admin":{"MQTT/KEEP": 60}}                           ;Keep alive

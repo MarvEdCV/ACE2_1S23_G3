@@ -11,6 +11,7 @@
 #include "devices/select_device_humedad.hpp"
 
 #include "protocol/conexion.hpp"
+#include "json/select_com_json.hpp"
 #include "task.hpp"
 
 /*
@@ -20,16 +21,19 @@ pin oneWire ds18b20 : 32
 pin humedad : 39
 pin ultrasonico trigPin : 19
 pin ultrasonico echoPin : 18
+pin bomba de agua : 23
 
 ======================================
 */
 void setup()
 {
+
+  pinMode(2, OUTPUT);
   pinMode(BOMBA, OUTPUT);
   setCpuFrequencyMhz(FRECUENCIA_ESP32);
   delay(TIME_INICIO);
 
-  Serial.begin(115200);
+  Serial_Mod();
 
   inicia_setting();
 
@@ -56,4 +60,6 @@ void loop()
 
   envia_sensores_mqtt();
   sensores_test();
+
+  debugger_recibe_json();
 }

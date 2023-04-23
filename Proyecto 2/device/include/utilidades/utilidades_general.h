@@ -7,6 +7,7 @@ String device_fw_version = ESCAPEQUOTE(BUILD_TAG);
 size_t content_len;
 #define U_PART U_SPIFFS
 // -------------------------------------------------------------------
+#define DEBUGER 115200
 
 #define define_task 3
 
@@ -16,3 +17,11 @@ size_t content_len;
 #define LED_ON LOW
 #define LED_OFF HIGH
 
+void debugger_recibe_json(void);
+void debugger_envia_json(void);
+
+#define LED_ON LOW
+#define LED_OFF HIGH
+
+// main
+void Serial_Mod();

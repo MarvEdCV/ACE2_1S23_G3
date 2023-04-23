@@ -1,0 +1,11 @@
+
+{"admin/admin":{"STA/NAME/PASS": [" ", " "]}}    ;Asigna normbre y password de la red wifi (necesario reiniciar dispositivo);
+{"admin/admin":{"STA/NAME": " "}}                ;Asignar nombre de la red wifi (necesita reiniciar dispositivo);
+{"admin/admin":{"STA/PASS" " "}}                 ;Asignar password de la red wifi (necesita reiniciar dispositivo);
+{"admin/admin":{"DEVICE/IP/STA": true}}          ;Regresa IP del wifi STA
+
+{"admin/admin":{"DEVICE/NAME": " "}}             ;Guarda nombre device
+
+{"admin/admin":{"DEVICE/MCLR": true}} 	         ;Restaura flash a sus valores por defecto omite token
+{"admin/admin":{"APP/RESET": true}}              ;Reinicia device
+

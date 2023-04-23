@@ -21,7 +21,7 @@ void envia_sensores_mqtt()
 
                 // {"device":"dispositivo-001", "name": "temp1", "data": 23}
 
-                char data[5];
+                char data[6];
 
                 sprintf(data, "%0.2f", temperatura1_read);
 
@@ -33,7 +33,7 @@ void envia_sensores_mqtt()
 
                 if (mqtt_client.publish(topic_temp1, json_msg.c_str(), false))
                 {
-                    // Serial.println(json_msg);
+                    Serial.println(json_msg);
                     // log("temp1 success");
                 }
                 else
@@ -53,7 +53,7 @@ void envia_sensores_mqtt()
 
                 // {"device":"dispositivo-001", "name": "temp2", "data": 23}
 
-                char data[5];
+                char data[6];
 
                 sprintf(data, "%0.2f", temperatura2_read);
 
@@ -65,7 +65,7 @@ void envia_sensores_mqtt()
 
                 if (mqtt_client.publish(topic_temp2, json_msg.c_str(), false))
                 {
-                    // Serial.println(json_msg);
+                    Serial.println(json_msg);
                     // log("temp2 success");
                 }
                 else
@@ -90,10 +90,10 @@ void envia_sensores_mqtt()
                 doc_envia["data"] = porcentajehum;
 
                 serializeJson(doc_envia, json_msg);
-                
+
                 if (mqtt_client.publish(topic_hum1, json_msg.c_str(), false))
                 {
-                    // Serial.println(json_msg);
+                    Serial.println(json_msg);
                     // log("hum1 success");
                 }
                 else
@@ -118,11 +118,10 @@ void envia_sensores_mqtt()
                 doc_envia["data"] = porcentajedist;
 
                 serializeJson(doc_envia, json_msg);
-                
 
                 if (mqtt_client.publish(topic_dist1, json_msg.c_str(), false))
                 {
-                    // Serial.println(json_msg);
+                    Serial.println(json_msg);
                     // log("dist1 success");
                 }
                 else
@@ -132,7 +131,7 @@ void envia_sensores_mqtt()
 
                 delay(10);
             }
-            
+
             // sensores
             //=================================================================
             if (millis() > time_sensores_get + time_all_limit)
@@ -140,16 +139,22 @@ void envia_sensores_mqtt()
                 DynamicJsonDocument doc_envia(1023);
                 String json_msg;
 
+                char temp1[6];
+                char temp2[6];
+
+                sprintf(temp1, "%0.2f", temperatura1_read);
+                sprintf(temp2, "%0.2f", temperatura2_read);
+
                 // {"device":"dispositivo-001", "name": "dist1", "data": 23}
 
                 doc_envia["device"] = vNombrePlaca;
                 doc_envia["name"] = "all";
-                doc_envia["TEmp_interior"] = temperatura1_read;
-                doc_envia["Temp_exterior"] = temperatura2_read;
+                doc_envia["TEmp_interior"] = temp1;
+                doc_envia["Temp_exterior"] = temp2;
                 doc_envia["Humedad"] = porcentajehum;
                 doc_envia["Tanque"] = porcentajedist;
 
-                serializeJsonPretty(doc_envia, json_msg);
+                serializeJson(doc_envia, json_msg);
 
                 if (mqtt_client.publish(topic_all, json_msg.c_str(), false))
                 {
