@@ -1,0 +1,31 @@
+
+<div class="container">
+    <h3> Dashboard sistema de riego</h3>
+
+    <div class="border border-dark">
+        <div class="row">
+            <div class="col-6">
+
+                <app-temp-externa [nombreGrafica]="temperaturas.externa.nombre" 
+                    [temperaturaActual]="this.temperaturas.externa.data">
+                </app-temp-externa>
+            </div>
+            <div class="col-6">
+                <app-temp-externa [nombreGrafica]="temperaturas.interna.nombre"
+                    [temperaturaActual]="this.temperaturas.interna.data">
+                </app-temp-externa>
+                
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-6">
+                grafica humedad
+            </div>
+            <div class="col-6">
+                grafica porcentaje de agua
+            </div>
+        </div>
+    </div>
+    
+</div>
