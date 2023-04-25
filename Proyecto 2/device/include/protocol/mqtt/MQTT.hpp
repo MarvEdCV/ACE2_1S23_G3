@@ -27,6 +27,8 @@ void callback(char *topic, byte *message, unsigned int length)
         return;
     }
     {
+        int checksum = 0;
+
         if (doc_recibe["Status"])
         {
 
@@ -39,6 +41,95 @@ void callback(char *topic, byte *message, unsigned int length)
                 digitalWrite(2, LOW);
 
             Serial.println(_status);
+        }
+
+        if (doc_recibe["status_bomba"] || doc_recibe["status_bomba"] == 0)
+        {
+            int _bomba = doc_recibe["status_bomba"];
+
+            log("Bomba status: " + String(_bomba));
+
+            if (_bomba == 1)
+            {
+                control_bomba = millis();
+                valida_bomba = true;
+                // envia data
+                send_init_bomba = true;
+            }
+            else
+            {
+                control_bomba = millis();
+
+                if (valida_bomba == true)
+                {
+                    valida_bomba = false;
+                    // envia data
+                    send_end_bomba = true;
+                }
+            }
+        }
+
+        if (doc_recibe["tiempo_activa_bomba"] || doc_recibe["tiempo_activa_bomba"] == 0)
+        {
+
+            long _tiempo_activa_bomba = doc_recibe["tiempo_activa_bomba"];
+
+            if (_tiempo_activa_bomba != tiempo_activa_bomba)
+            {
+
+                tiempo_activa_bomba = _tiempo_activa_bomba;
+                checksum++;
+            }
+
+            log("Tiempo bomba ON: " + String(tiempo_activa_bomba));
+        }
+
+        if (doc_recibe["altura_del_tanque"] || doc_recibe["altura_del_tanque"] == 0)
+        {
+            int _altura_del_tanque = doc_recibe["altura_del_tanque"];
+
+            if (_altura_del_tanque != altura_del_tanque)
+            {
+
+                altura_del_tanque = _altura_del_tanque;
+                checksum++;
+            }
+
+            log("Altura del tanque: " + String(altura_del_tanque));
+        }
+
+        if (doc_recibe["nivel_agua_min"] || doc_recibe["nivel_agua_min"] == 0)
+        {
+            int _nivel_agua_min = doc_recibe["nivel_agua_min"];
+
+            if (_nivel_agua_min != nivel_agua_min)
+            {
+
+                nivel_agua_min = _nivel_agua_min;
+                checksum++;
+            }
+
+            log("Alerta agua min: " + String(nivel_agua_min));
+        }
+
+        if (doc_recibe["nivel_agua_max"] || doc_recibe["nivel_agua_max"] == 0)
+        {
+            int _nivel_agua_max = doc_recibe["nivel_agua_max"];
+
+            if (_nivel_agua_max != nivel_agua_max)
+            {
+
+                nivel_agua_max = _nivel_agua_max;
+                checksum++;
+            }
+
+            log("Alerta agua max: " + String(nivel_agua_max));
+        }
+
+        if (checksum > 0)
+        {
+
+            validar_spiffs_sensores = true;
         }
     }
 }
@@ -56,20 +147,15 @@ void inicia_mqtt()
     String _client = mqtt_clientId;
     _client += String(random(0xffff), HEX);
 
-    sprintf(topicWill, "%s/status", user_mqtt.c_str());
-
-    if (mqtt_client.connect(_client.c_str(), user_mqtt.c_str(), pass_mqtt.c_str(), topicWill, willQos, willRetain, willMsg, cleanSession))
+    // sprintf(topicWill, "%s/status", user_mqtt.c_str());
+    // if (mqtt_client.connect(_client.c_str(), user_mqtt.c_str(), pass_mqtt.c_str(), topicWill, willQos, willRetain, willMsg, cleanSession))
+    if (mqtt_client.connect(_client.c_str(), user_mqtt.c_str(), pass_mqtt.c_str()))
     {
         Serial.println("connected to MQTT");
         mqtt_client.subscribe("backend/status", suscripcionQos);
         mqtt_client.subscribe(sub_config, suscripcionQos);
 
-        if (mqtt_client.publish(topicWill, backMsg, false))
-        {
-            Serial.println(backMsg);
-        }
-        else
-            log("status on success");
+        log("status on success");
     }
 }
 
@@ -81,21 +167,17 @@ void reconectar_mqtt()
         String _client = mqtt_clientId;
         _client += String(random(0xffff), HEX);
 
-        sprintf(topicWill, "%s/status", user_mqtt.c_str());
-
         Serial.println("Attempting MQTT connection...");
-        if (mqtt_client.connect(mqtt_clientId.c_str(), user_mqtt.c_str(), pass_mqtt.c_str(), topicWill, willQos, willRetain, willMsg, cleanSession))
+
+        // sprintf(topicWill, "%s/status", user_mqtt.c_str());
+        // if (mqtt_client.connect(mqtt_clientId.c_str(), user_mqtt.c_str(), pass_mqtt.c_str(), topicWill, willQos, willRetain, willMsg, cleanSession))
+        if (mqtt_client.connect(_client.c_str(), user_mqtt.c_str(), pass_mqtt.c_str()))
         {
             Serial.println("connected to MQTT");
             mqtt_client.subscribe("backend/status", suscripcionQos);
             mqtt_client.subscribe(sub_config, suscripcionQos);
 
-            if (mqtt_client.publish(topicWill, backMsg, false))
-            {
-                Serial.println(backMsg);
-            }
-            else
-                log("status on success");
+            log("status on success");
         }
         else
         {

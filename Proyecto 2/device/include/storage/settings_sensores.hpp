@@ -11,6 +11,7 @@ void settingsReset_sensores()
 
     // subscripciones
     strlcpy(sub_config, "device/sensores/config", sizeof(sub_config));
+    strlcpy(status_out, "device/status", sizeof(status_out));
 
     // timepo de envios al broker
     time_temp1_limit = 1000;
@@ -62,7 +63,8 @@ boolean settingsRead_sensores()
 
         strlcpy(topic_all, jsonSettings["topic_all"], sizeof(topic_all));
 
-        strlcpy(sub_config, jsonSettings["sub_config"], sizeof(sub_config));
+        strlcpy(sub_config, jsonSettings["sub_config"], sizeof(sub_config)); 
+        strlcpy(status_out, jsonSettings["status_out"], sizeof(status_out));
 
         time_temp1_limit = jsonSettings["time_temp1_limit"];
         time_temp2_limit = jsonSettings["time_temp2_limit"];
@@ -111,7 +113,8 @@ boolean settingsSave_sensores()
 
         jsonSettings["topic_all"] = topic_all;
 
-        jsonSettings["sub_config"] = sub_config;
+        jsonSettings["sub_config"] = sub_config; 
+        jsonSettings["status_out"] = status_out;
 
         jsonSettings["time_temp1_limit"] = time_temp1_limit;
         jsonSettings["time_temp2_limit"] = time_temp2_limit;

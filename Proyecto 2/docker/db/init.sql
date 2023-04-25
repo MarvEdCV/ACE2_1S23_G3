@@ -96,3 +96,15 @@ CREATE TABLE `device_dist_1` (
 /* INSERTAR DISPOSITIVOS */
 INSERT INTO device_dist_1 (`device`, `name`, `data`, `created`) VALUES 
 ('dispositivo-001', 'dist1', '100', NOW());
+
+CREATE TABLE `device_bomba` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `device` VARCHAR(255) DEFAULT NULL,
+  `name` VARCHAR(255) DEFAULT NULL,
+  `data` VARCHAR(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/* INSERTAR DISPOSITIVOS */
+INSERT INTO device_bomba (`device`, `name`, `data`, `created`) VALUES 
+('dispositivo-001', 'bomba', '0', NOW());

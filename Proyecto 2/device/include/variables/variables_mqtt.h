@@ -20,3 +20,7 @@ char topic[75];
 char topicWill[75];
 
 long time_reconect_mqtt;
+
+char topic_all[35];
+char sub_config[35];
+char status_out[35];
