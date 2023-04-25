@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { TemperaturaService } from 'src/app/services/temperatura.service';
+import { TemperaturaService, ITopicSensors } from 'src/app/services/temperatura.service';
+import { IMqttMessage } from 'ngx-mqtt';
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-layout',
@@ -19,13 +21,32 @@ export class LayoutComponent {
     }
   }
 
-  constructor(private temperaturaService: TemperaturaService){
-    
-    setInterval( ()=>{
-      let lecturaTemperaturas = this.temperaturaService.getTemperaturas();
+  myType = {
+    device: ""
+  }
 
-      this.temperaturas.externa.data = lecturaTemperaturas.temperaturaExterna;
-      this.temperaturas.interna.data = lecturaTemperaturas.temperaturaInterna;
-    }, 1000);
+  private subscription: Subscription = new Subscription();
+
+  constructor(private temperaturaService: TemperaturaService){}
+
+  ngOnInit(): void {
+    this.getSensorsData();
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
+  }
+
+  public getSensorsData(){
+
+    this.subscription = this.temperaturaService.getAllSensoresTopic().subscribe((message: IMqttMessage) => {
+      
+      //console.log(message.payload.toString());
+      let item:ITopicSensors = JSON.parse( message.payload.toString() );
+      //console.log(item.device, item.Temp_exterior, item.TEmp_interior, item.Humedad, item.Tanque);
+      
+      this.temperaturas.externa.data = item.Temp_exterior;
+      this.temperaturas.interna.data = item.TEmp_interior;
+    });
   }
 }

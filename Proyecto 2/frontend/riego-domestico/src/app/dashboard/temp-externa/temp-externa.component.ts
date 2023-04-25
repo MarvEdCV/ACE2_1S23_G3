@@ -65,7 +65,7 @@ export class TempExternaComponent {
         }
       }
     },
-    //events: [],
+    events: [],
     plugins: {
       legend:{
         display: false // hide data.datasets[].label
