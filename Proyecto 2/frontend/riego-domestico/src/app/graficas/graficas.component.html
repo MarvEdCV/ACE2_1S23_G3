@@ -6,12 +6,17 @@
       <input type="date" id="startDate" [(ngModel)]="startDate">
       <label for="startTime">Hora de inicio:</label>
       <input type="time" id="startTime" [(ngModel)]="startTime">
+      <input type="number" id="startTimeSeconds" [(ngModel)]="startTimeSeconds">
     </div>
     <div>
       <label for="endDate">Fecha de fin:</label>
       <input type="date" id="endDate" [(ngModel)]="endDate">
       <label for="endTime">Hora de fin:</label>
       <input type="time" id="endTime" [(ngModel)]="endTime">
+      <input type="number" id="endTimeSeconds" [(ngModel)]="endTimeSeconds">
+    </div>
+    <div>
+      <button (click)="getData()">Generar Gráficas</button>
     </div>
     <div class="row">
       <div class="col-6">
