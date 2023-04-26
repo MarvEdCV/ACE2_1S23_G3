@@ -11,7 +11,20 @@ import { GraficaPieComponent } from './dashboard/grafica-pie/grafica-pie.compone
 import { GraficasComponent } from './graficas/graficas.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import {FormsModule} from "@angular/forms";
+ 
+// Mqtt
+import { MqttModule, IMqttServiceOptions } from 'ngx-mqtt';
+import { EnvironmentProd as env } from 'src/environment/environment.prod';
 
+
+const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: env.mqtt.host,
+  port: env.mqtt.port, 
+  path: env.mqtt.path,
+  protocol: "ws",
+  password: env.mqtt.password, 
+  username: env.mqtt.username
+}
 
 @NgModule({
   declarations: [
@@ -27,7 +40,8 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
     AppRoutingModule, 
     NgChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
   ],
   providers: [],
   bootstrap: [AppComponent]

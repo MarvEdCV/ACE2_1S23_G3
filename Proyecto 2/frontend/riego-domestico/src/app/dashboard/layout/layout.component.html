@@ -1,29 +1,38 @@
 
 <div class="container">
-    <h3> Dashboard sistema de riego</h3>
+    <h4> Dashboard sistema de riego</h4>
 
     <div class="border border-dark">
         <div class="row">
             <div class="col-6">
-
-                <app-temp-externa [nombreGrafica]="temperaturas.externa.nombre" 
+                <app-temp-externa [nombreGrafica]="this.temperaturas.externa.nombre" 
                     [temperaturaActual]="this.temperaturas.externa.data">
                 </app-temp-externa>
             </div>
+
             <div class="col-6">
-                <app-temp-externa [nombreGrafica]="temperaturas.interna.nombre"
+                <app-temp-externa [nombreGrafica]="this.temperaturas.interna.nombre"
                     [temperaturaActual]="this.temperaturas.interna.data">
                 </app-temp-externa>
                 
             </div>
         </div>
-    
+        <hr>
         <div class="row">
-            <div class="col-6">
-                grafica humedad
-            </div>
-            <div class="col-6">
-                grafica porcentaje de agua
+            <div class="col-6" id="Grafica de Humedad">
+                <app-grafica-pie
+                [nombreGrafica]="humedad.nombre"
+                [newGraphPieLabels]="humedad.labels"
+                [newDatasets]="humedad.datasets"
+                ></app-grafica-pie>
+            </div> 
+
+            <div class="col-6" id="Grafica de tanque">
+                <app-grafica-pie 
+                [nombreGrafica]="porcentajeDeAgua.nombre"
+                [newGraphPieLabels]="porcentajeDeAgua.labels"
+                [newDatasets]="porcentajeDeAgua.datasets"
+                ></app-grafica-pie>
             </div>
         </div>
     </div>
