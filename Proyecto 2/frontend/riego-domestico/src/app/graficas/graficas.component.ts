@@ -16,7 +16,7 @@ interface ObjetoGraficas {
 })
 
 
-export class GraficasComponent {
+export class GraficasComponent implements OnInit{
 
   constructor(private http: HttpClient) {
     Chart.register(Annotation)
@@ -39,8 +39,7 @@ export class GraficasComponent {
   public lineChartOptions5: ChartConfiguration['options'];
   public lineChartData5: ChartConfiguration['data'] = { labels: [], datasets: [] };
 
-  startDate!: string;
-  startDateTime!: string;
+  startDate!: string ;
   startTime!: string;
   startTimeSeconds!: string;
   endDate!: string;
@@ -49,15 +48,60 @@ export class GraficasComponent {
 
 
 
+  ngOnInit() {
+    this.setDateTime();
+    this.validateSeconds();
+  }
+
+  setDateTime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const second = now.getSeconds();
+
+    this.startDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+    this.startTime = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute-1}`;
+    this.startTimeSeconds = second.toString();
+    this.endDate = this.startDate;
+    this.endTime = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}`;
+    this.endTimeSeconds = this.startTimeSeconds;
+  }
+
+  validateSeconds() {
+    const startS = this.startTimeSeconds;
+    const endS = this.endTimeSeconds;
+    if (parseInt(startS) < 10 && this.startTimeSeconds.toString().length < 2) {
+      this.startTimeSeconds = "0" + this.startTimeSeconds;
+    }
+    if (parseInt(startS) > 59) {
+      this.startTimeSeconds = "59";
+    }
+    if (parseInt(endS) < 10 && this.endTimeSeconds.toString().length < 2) {
+      this.endTimeSeconds = "0" + this.endTimeSeconds;
+    }
+    if (parseInt(endS) > 59) {
+      this.endTimeSeconds = "59";
+    }
+  }
 
   getData(){
-    console.log(this.startTimeSeconds)
-    console.log(this.startDate + 'T' + this.startTime + ':'+this.startTimeSeconds.toString()+'.000Z')
-    console.log(this.startDate + 'T' + this.startTime + ':00.000Z')
+    this.validateSeconds();
+    const start = new Date(`${this.startDate}T${this.startTime}:${this.startTimeSeconds.toString()}.000Z`).toISOString();
+    const end = new Date(`${this.endDate}T${this.endTime}:${this.endTimeSeconds.toString()}.000Z`).toISOString();
+
+    if(end <= start){
+      alert("La fecha final debe ser mayor que la fecha inicial")
+      return;
+    }
+
     const body = {
-      fechainicial: new Date(this.startDate + 'T' + this.startTime + ':00.000Z').toISOString(),
-      fechafinal: new Date(this.endDate + 'T' + this.endTime + ':00.000Z').toISOString()
+      fechainicial: start,
+      fechafinal: end
     };
+    console.log(`Obteniendo gráficas ::: fecha inicial -> ${body.fechafinal} ::: fecha final -> ${body.fechafinal}`);
 
     const url = 'http://54.183.38.85:3525/api/v1'
 
@@ -133,7 +177,6 @@ export class GraficasComponent {
           };
           objeto.push(nuevoObjeto);
         });
-        console.log(objeto);
 
         this.lineChartData5 =  {
           labels: objeto.map((item) => item.timestamp),
@@ -165,6 +208,45 @@ export class GraficasComponent {
               },
               ticks:{
                 stepSize:1
+              }
+            }
+          }
+        }
+      },(error: any) => {
+        if(error.status === 404){
+          console.log("NOT FOUND, NO HAY DATA EN ESAS FECHAS PARA LA BOMBA")
+          const objeto: ObjetoGraficas[] = [];
+          this.lineChartData5 =  {
+            labels: objeto.map((item) => item.timestamp),
+            datasets: [{
+              label: 'Activación de la bomba de agua',
+              data: objeto.map((item) => item.datos),
+              borderColor: 'rgb(75, 192, 192)',
+              backgroundColor: '#b8f1a5',
+              pointBackgroundColor: 'rgba(148,159,177,1)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+              fill: 'origin',
+              tension: 0.6
+            }]}
+
+          this.lineChartOptions5 = {
+            scales:{
+              x:{
+                title:{
+                  display:true,
+                  text: "Fecha y Hora"
+                }
+              },
+              y:{
+                title:{
+                  display: true,
+                  text: "Activada/Desactivada"
+                },
+                ticks:{
+                  stepSize:1
+                }
               }
             }
           }
