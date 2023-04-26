@@ -33,8 +33,8 @@ void envia_sensores_mqtt()
 
                 if (mqtt_client.publish(topic_temp1, json_msg.c_str(), false))
                 {
-                    Serial.println(json_msg);
-                    // log("temp1 success");
+                    // Serial.println(json_msg);
+                    //  log("temp1 success");
                 }
                 else
                     log("temp1 fail");
@@ -65,8 +65,8 @@ void envia_sensores_mqtt()
 
                 if (mqtt_client.publish(topic_temp2, json_msg.c_str(), false))
                 {
-                    Serial.println(json_msg);
-                    // log("temp2 success");
+                    // Serial.println(json_msg);
+                    //  log("temp2 success");
                 }
                 else
                     log("temp2 fail");
@@ -93,8 +93,8 @@ void envia_sensores_mqtt()
 
                 if (mqtt_client.publish(topic_hum1, json_msg.c_str(), false))
                 {
-                    Serial.println(json_msg);
-                    // log("hum1 success");
+                    // Serial.println(json_msg);
+                    //  log("hum1 success");
                 }
                 else
                     log("hum1 fail");
@@ -121,8 +121,8 @@ void envia_sensores_mqtt()
 
                 if (mqtt_client.publish(topic_dist1, json_msg.c_str(), false))
                 {
-                    Serial.println(json_msg);
-                    // log("dist1 success");
+                    // Serial.println(json_msg);
+                    //  log("dist1 success");
                 }
                 else
                     log("dist1 fail");
@@ -153,6 +153,7 @@ void envia_sensores_mqtt()
                 doc_envia["Temp_exterior"] = temp2;
                 doc_envia["Humedad"] = porcentajehum;
                 doc_envia["Tanque"] = porcentajedist;
+                doc_envia["bomba_status"] = bomba_status;
 
                 serializeJson(doc_envia, json_msg);
 
@@ -165,6 +166,56 @@ void envia_sensores_mqtt()
                     log("all fail");
 
                 time_sensores_get = millis();
+
+                delay(10);
+            }
+
+            if (send_init_bomba == true)
+            {
+
+                DynamicJsonDocument doc_envia(1023);
+                String json_msg;
+
+                // {"device":"dispositivo-001", "name": "bomba", "data": 23}
+
+                doc_envia["device"] = vNombrePlaca;
+                doc_envia["name"] = "bomba";
+                doc_envia["data"] = bomba_status;
+
+                serializeJson(doc_envia, json_msg);
+
+                if (mqtt_client.publish(status_out, json_msg.c_str(), false))
+                {
+                    send_init_bomba = false;
+                    log("bomba init success");
+                }
+                else
+                    log("bomba fail");
+
+                delay(10);
+            }
+
+            if (send_end_bomba == true)
+            {
+
+                DynamicJsonDocument doc_envia(1023);
+                String json_msg;
+
+                // {"device":"dispositivo-001", "name": "bomba", "data": 23}
+
+                doc_envia["device"] = vNombrePlaca;
+                doc_envia["name"] = "bomba";
+                doc_envia["data"] = bomba_status;
+
+                serializeJson(doc_envia, json_msg);
+
+                if (mqtt_client.publish(status_out, json_msg.c_str(), false))
+                {
+                    send_end_bomba = false;
+                    log("bomba stop success");
+                }
+                else
+                    log("bomba fail");
 
                 delay(10);
             }

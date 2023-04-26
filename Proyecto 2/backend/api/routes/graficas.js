@@ -109,6 +109,32 @@ router.post(process.env.API_SENSOR_TEMP2, async (req, res) => {
     }
   });  
 
+  router.post(process.env.API_SENSOR_BOMBA1, async (req, res) => {
+
+    const fecha_inicio = req.body.fechainicial;
+    const fecha_fin = req.body.fechafinal;
+    const dbase = process.env.DB_B1;
+  
+    try {
+      const data = await dataTime(dbase, fecha_inicio, fecha_fin);
+  
+      if (data.length > 0) {
+        return res.status(200).send(data);
+      } else {
+        const response = {
+          status: "Fail",
+        };
+        return res.status(404).send(response);
+      }
+    } catch (error) {
+      console.error(error);
+      const response = {
+        status: "Error",
+      };
+      return res.status(500).send(response);
+    }
+  });  
+
 dataTime = (dbase, fecha_inicio, fecha_fin) => {
   return new Promise((resolve, reject) => {
 

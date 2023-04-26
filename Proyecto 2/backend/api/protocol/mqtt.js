@@ -59,6 +59,7 @@ client.on("connect", function () {
   client.subscribe(process.env.MQTT_TOPIC_IN_TEMP2);
   client.subscribe(process.env.MQTT_TOPIC_IN_HUM1);
   client.subscribe(process.env.MQTT_TOPIC_IN_DIST1);
+  client.subscribe(process.env.MQTT_DEVICE_STATUS);
 
   console.log(connectUrl.green);
 });
@@ -85,7 +86,7 @@ function subscribeMsg(topic) {
 
 function recibeMsg() {
   client.on("message", async (topic, message) => {
-    // console.log("Message: ", message.toString());
+    //console.log("Message: ", message.toString());
 
     try {
       const payload = JSON.parse(message.toString());
@@ -107,6 +108,17 @@ guardar_datos = (topic, payload) => {
     const device = payload.device;
     const name = payload.name;
     const data = payload.data;
+
+    if (topic === process.env.MQTT_DEVICE_STATUS) {
+      if (payload.name == "bomba") {
+        console.log(payload);
+        query = `${process.env.DB_SAVE_BOMBA} ('${device}', '${name}', '${data}', NOW())`;
+      }
+
+      if (payload.name == "alerta") {
+        console.log("alerta");
+      }
+    }
 
     if (topic === process.env.MQTT_TOPIC_IN_HUM1) {
       //console.log("Humedad sensor 1".yellow);

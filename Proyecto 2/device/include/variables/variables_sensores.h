@@ -13,11 +13,13 @@ char topic_temp2[35];
 char topic_hum1[35];
 char topic_dist1[35];
 
-char topic_all[35];
-char sub_config[35];
-
 //bomba
 long tiempo_activa_bomba;
+long control_bomba;
+int bomba_status;
+bool valida_bomba;
+bool send_init_bomba = false;
+bool send_end_bomba = false;
 
 //temperatura
 float temperatura1_read;

@@ -126,6 +126,7 @@ void sensores_test()
         log("Sensor humedad[1] :" + String(porcentajehum) + "%");
         // log("Sensor ultrasonico[1] : " + String(distanceCm) + "cm");
         log("Sensor ultrasonico[1] : " + String(porcentajedist) + "%");
+        log("Bomba status: " + String(bomba_status));
         log("=============================================================");
         time_sensor_test = millis();
     }

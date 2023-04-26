@@ -9,6 +9,7 @@
 #include "devices/select_device_onewire.hpp"
 #include "devices/select_device_ultrasonico.hpp"
 #include "devices/select_device_humedad.hpp"
+#include "devices/deviceBomba.hpp"
 
 #include "protocol/conexion.hpp"
 #include "json/select_com_json.hpp"
@@ -22,6 +23,8 @@ pin humedad : 39
 pin ultrasonico trigPin : 19
 pin ultrasonico echoPin : 18
 pin bomba de agua : 23
+
+pin 2: indicador backend
 
 ======================================
 */
@@ -54,12 +57,13 @@ void setup()
 
 void loop()
 {
+  debugger_recibe_json();
 
   conexion_wifi();
   get_humedad();
+  get_bomba();
 
   envia_sensores_mqtt();
   sensores_test();
 
-  debugger_recibe_json();
 }
