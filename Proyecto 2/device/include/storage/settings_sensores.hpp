@@ -21,8 +21,8 @@ void settingsReset_sensores()
 
     time_all_limit = 1000;
     //--------------------------------
-    nivel_agua_min = 50;
-    nivel_agua_max = 80;
+    nivel_humedad_min = 50;
+    nivel_humedad_max = 80;
     tiempo_activa_bomba = 10000; // 10 sec
 
     altura_del_tanque = 100; // centimetros
@@ -73,8 +73,8 @@ boolean settingsRead_sensores()
 
         time_all_limit = jsonSettings["time_all_limit"];
 
-        nivel_agua_min = jsonSettings["nivel_agua_min"];
-        nivel_agua_max = jsonSettings["nivel_agua_max"];
+        nivel_humedad_min = jsonSettings["nivel_humedad_min"];
+        nivel_humedad_max = jsonSettings["nivel_humedad_max"];
         tiempo_activa_bomba = jsonSettings["tiempo_activa_bomba"];
 
         altura_del_tanque = jsonSettings["altura_del_tanque"];
@@ -123,8 +123,8 @@ boolean settingsSave_sensores()
 
         jsonSettings["time_all_limit"] = time_all_limit;
 
-        jsonSettings["nivel_agua_min"] = nivel_agua_min;
-        jsonSettings["nivel_agua_max"] = nivel_agua_max;
+        jsonSettings["nivel_humedad_min"] = nivel_humedad_min;
+        jsonSettings["nivel_humedad_max"] = nivel_humedad_max;
         jsonSettings["tiempo_activa_bomba"] = tiempo_activa_bomba;
 
         jsonSettings["altura_del_tanque"] = altura_del_tanque;

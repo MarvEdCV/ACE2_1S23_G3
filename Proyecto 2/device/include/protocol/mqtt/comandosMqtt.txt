@@ -1,15 +1,15 @@
 //posibles datos a enviar (no enviar todos juntos, 2 o tres maximo)
 {
-    "time_temp1_limit": 1000,
-    "time_temp2_limit":1000,
-    "time_hum1_limit" : 1000,
-    "time_dist1_limit" : 1000,
+    "time_temp1_limit": 20000,
+    "time_temp2_limit":20000,
+    "time_hum1_limit" : 20000,
+    "time_dist1_limit" : 20000,
     "time_all_limit" :1000,
-    "nivel_agua_min" :50,
-    "nivel_agua_max" :80,
+    "nivel_humedad_min" :79,
+    "nivel_humedad_max" :80,
     "tiempo_activa_bomba" : 10000,
     "altura_del_tanque": 100,
-    "status_bomba": 1
+    "status_bomba": 0
 }
 
 device/sensores/config

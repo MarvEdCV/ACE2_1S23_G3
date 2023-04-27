@@ -98,32 +98,88 @@ void callback(char *topic, byte *message, unsigned int length)
             log("Altura del tanque: " + String(altura_del_tanque));
         }
 
-        if (doc_recibe["nivel_agua_min"] || doc_recibe["nivel_agua_min"] == 0)
+        if (doc_recibe["nivel_humedad_min"] || doc_recibe["nivel_humedad_min"] == 0)
         {
-            int _nivel_agua_min = doc_recibe["nivel_agua_min"];
+            int _nivel_humedad_min = doc_recibe["nivel_humedad_min"];
 
-            if (_nivel_agua_min != nivel_agua_min)
+            if (_nivel_humedad_min != nivel_humedad_min)
             {
 
-                nivel_agua_min = _nivel_agua_min;
+                nivel_humedad_min = _nivel_humedad_min;
                 checksum++;
             }
 
-            log("Alerta agua min: " + String(nivel_agua_min));
+            log("Alerta agua min: " + String(nivel_humedad_min));
         }
 
-        if (doc_recibe["nivel_agua_max"] || doc_recibe["nivel_agua_max"] == 0)
+        if (doc_recibe["nivel_humedad_max"] || doc_recibe["nivel_humedad_max"] == 0)
         {
-            int _nivel_agua_max = doc_recibe["nivel_agua_max"];
+            int _nivel_humedad_max = doc_recibe["nivel_humedad_max"];
 
-            if (_nivel_agua_max != nivel_agua_max)
+            if (_nivel_humedad_max != nivel_humedad_max)
             {
 
-                nivel_agua_max = _nivel_agua_max;
+                nivel_humedad_max = _nivel_humedad_max;
                 checksum++;
             }
 
-            log("Alerta agua max: " + String(nivel_agua_max));
+            log("Alerta agua max: " + String(nivel_humedad_max));
+        }
+
+        if (doc_recibe["time_temp1_limit"] || doc_recibe["time_temp1_limit"] == 0)
+        {
+            int _time_temp1_limit = doc_recibe["time_temp1_limit"];
+
+            if (_time_temp1_limit != time_temp1_limit)
+            {
+
+                time_temp1_limit = _time_temp1_limit;
+                checksum++;
+            }
+
+            log("Send temp1 mqtt: " + String(time_temp1_limit));
+        }
+
+        if (doc_recibe["time_temp2_limit"] || doc_recibe["time_temp2_limit"] == 0)
+        {
+            int _time_temp2_limit = doc_recibe["time_temp2_limit"];
+
+            if (_time_temp2_limit != time_temp2_limit)
+            {
+
+                time_temp2_limit = _time_temp2_limit;
+                checksum++;
+            }
+
+            log("Send temp2 mqtt: " + String(time_temp2_limit));
+        }
+
+        if (doc_recibe["time_hum1_limit"] || doc_recibe["time_hum1_limit"] == 0)
+        {
+            int _time_hum1_limit = doc_recibe["time_hum1_limit"];
+
+            if (_time_hum1_limit != time_hum1_limit)
+            {
+
+                time_hum1_limit = _time_hum1_limit;
+                checksum++;
+            }
+
+            log("Send hum1 mqtt: " + String(time_hum1_limit));
+        }
+
+        if (doc_recibe["time_dist1_limit"] || doc_recibe["time_dist1_limit"] == 0)
+        {
+            int _time_dist1_limit = doc_recibe["time_dist1_limit"];
+
+            if (_time_dist1_limit != time_dist1_limit)
+            {
+
+                time_dist1_limit = _time_dist1_limit;
+                checksum++;
+            }
+
+            log("Send dist1 mqtt: " + String(time_dist1_limit));
         }
 
         if (checksum > 0)
@@ -131,6 +187,8 @@ void callback(char *topic, byte *message, unsigned int length)
 
             validar_spiffs_sensores = true;
         }
+   
+   
     }
 }
 

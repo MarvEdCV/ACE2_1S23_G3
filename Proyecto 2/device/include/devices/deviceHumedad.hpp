@@ -25,5 +25,27 @@ void get_humedad()
     // alertas
     //-------------------------------------------------------
 
+    if (alerta_status == 0)
+    {
+
+        if (porcentajehum >= nivel_humedad_max)
+        {
+
+            alerta_status = 1;
+            send_humedad_alerta = true;
+            Serial.println("Activa alerta de humedad");
+        }
+    }
+    else
+    {
+
+        if (porcentajehum <= nivel_humedad_min)
+        {
+
+            alerta_status = 0;
+            send_humedad_alerta = false;
+            Serial.println("Desactiva alerta de humedad");
+        }
+    }
     //-------------------------------------------------------
 }

@@ -36,10 +36,12 @@ long time_sensor;
 int porcentajehum;
 float lectura_humedad;
 long time_humedad;
+bool send_humedad_alerta = false;
+int alerta_status;
 
 //sonar
-int nivel_agua_min;
-int nivel_agua_max;
+int nivel_humedad_min;
+int nivel_humedad_max;
 
 int altura_del_tanque;
 int porcentajedist;
