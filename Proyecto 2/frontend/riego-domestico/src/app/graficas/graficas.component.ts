@@ -1,135 +1,258 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { default as Annotation } from 'chartjs-plugin-annotation';
+import { HttpClient } from '@angular/common/http';
+
+interface ObjetoGraficas {
+  timestamp: string;
+  datos: number;
+}
+
 @Component({
   selector: 'app-graficas',
   templateUrl: './graficas.component.html',
   styleUrls: ['./graficas.component.css']
 })
 
-export class GraficasComponent {
 
-  dataTemperatura = [
-    { timestamp: '2023-04-20T00:00:00.000Z', datos: 20 },
-    { timestamp: '2023-04-20T01:00:00.000Z', datos: 18 },
-    { timestamp: '2023-04-20T02:00:00.000Z', datos: 16 },
-    { timestamp: '2023-04-20T03:00:00.000Z', datos: 14 },
-    { timestamp: '2023-04-20T04:00:00.000Z', datos: 15 },
-    { timestamp: '2023-04-20T05:00:00.000Z', datos: 17 },
-    { timestamp: '2023-04-20T06:00:00.000Z', datos: 19 },
-    { timestamp: '2023-04-20T07:00:00.000Z', datos: 21 },
-    { timestamp: '2023-04-20T08:00:00.000Z', datos: 23 },
-    { timestamp: '2023-04-20T09:00:00.000Z', datos: 25 },
-    { timestamp: '2023-04-20T10:00:00.000Z', datos: 26 },
-    { timestamp: '2023-04-20T11:00:00.000Z', datos: 27 },
-    { timestamp: '2023-04-20T12:00:00.000Z', datos: 28 },
-    { timestamp: '2023-04-20T13:00:00.000Z', datos: 29 },
-    { timestamp: '2023-04-20T14:00:00.000Z', datos: 28 },
-    { timestamp: '2023-04-20T15:00:00.000Z', datos: 27 },
-    { timestamp: '2023-04-20T16:00:00.000Z', datos: 26 },
-    { timestamp: '2023-04-20T17:00:00.000Z', datos: 25 },
-    { timestamp: '2023-04-20T18:00:00.000Z', datos: 24 },
-    { timestamp: '2023-04-20T19:00:00.000Z', datos: 23 },
-    { timestamp: '2023-04-20T20:00:00.000Z', datos: 22 },
-    { timestamp: '2023-04-20T21:00:00.000Z', datos: 21 },
-    { timestamp: '2023-04-20T22:00:00.000Z', datos: 20 },
-    { timestamp: '2023-04-20T23:00:00.000Z', datos: 19 }
-  ];
+export class GraficasComponent implements OnInit{
 
-  dataBomba = [
-    { timestamp: '2023-04-20T00:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T01:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T02:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T03:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T04:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T05:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T06:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T07:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T08:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T09:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T10:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T11:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T12:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T13:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T14:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T15:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T16:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T17:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T18:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T19:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T20:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T21:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T22:00:00.000Z', datos: 0 },
-    { timestamp: '2023-04-20T23:00:00.000Z', datos: 1 },
-    { timestamp: '2023-04-20T23:30:00.000Z', datos: 0 }
-  ];
-  private newLabel? = 'New label';
-  startDate!: string;
-  startTime!: string;
-  endDate!: string;
-  endTime!: string;
-
-  constructor() {
+  constructor(private http: HttpClient) {
     Chart.register(Annotation)
   }
 
-  //GRAFICA TEMPERATURA EXTERNA
-  public lineChartData1: ChartConfiguration['data'] = this.generarData(this.dataTemperatura,"Temperatura Externa",'red','pink');
-  public lineChartOptions1: ChartConfiguration['options'] = this.generarOptions("Fecha y hora","Temperatura °C")
+  //VARIABLES PARA LAS GRAFICAS
   public lineChartType: ChartType = 'line';
+  public lineChartOptions1: ChartConfiguration['options'];
+  public lineChartData1: ChartConfiguration['data'] = { labels: [], datasets: [] };
 
-  //GRAFICA TEMPERATURA INTERNA
+  public lineChartOptions2: ChartConfiguration['options'];
+  public lineChartData2: ChartConfiguration['data'] = { labels: [], datasets: [] };
 
-  public lineChartData2: ChartConfiguration['data'] = this.generarData(this.dataTemperatura,"Temperatura Interna",'green','#a7f38d');
-  public lineChartOptions2: ChartConfiguration['options'] = this.generarOptions("Fecha y hora","Temperatura °C")
+  public lineChartOptions3: ChartConfiguration['options'];
+  public lineChartData3: ChartConfiguration['data'] = { labels: [], datasets: [] };
 
-  //GRAFICA DE HUMEDAD DEL LA TIERRA
-  public lineChartData3: ChartConfiguration['data'] = this.generarData(this.dataTemperatura,"Humedad de la tierra",'brown','#da9180');
-  public lineChartOptions3: ChartConfiguration['options'] = this.generarOptions("Fecha y hora","Humedad de la tierra")
+  public lineChartOptions4: ChartConfiguration['options'];
+  public lineChartData4: ChartConfiguration['data'] = { labels: [], datasets: [] };
 
-  //PORCENTAJE DE AGUA
-  public lineChartData4: ChartConfiguration['data'] = this.generarData(this.dataTemperatura,"Porcentaje de Agua",'blue','#87CEFA');
-  public lineChartOptions4: ChartConfiguration['options'] = this.generarOptions("Fecha y hora","Porcentaje de agua %")
+  public lineChartOptions5: ChartConfiguration['options'];
+  public lineChartData5: ChartConfiguration['data'] = { labels: [], datasets: [] };
 
-
-  public lineChartData5: ChartConfiguration['data'] ={
-    labels: this.dataBomba.map((item) => item.timestamp),
-  datasets: [{
-    label: 'Activación de la bomba de agua',
-    data: this.dataBomba.map((item) => item.datos),
-    borderColor: 'rgb(75, 192, 192)',
-    backgroundColor: '#b8f1a5',
-    pointBackgroundColor: 'rgba(148,159,177,1)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-    fill: 'origin',
-    tension: 0.6
-  }]}
+  startDate!: string ;
+  startTime!: string;
+  startTimeSeconds!: string;
+  endDate!: string;
+  endTime!: string;
+  endTimeSeconds!: string;
 
 
-  public lineChartOptions5: ChartConfiguration['options'] ={
-    scales:{
-      x:{
-        title:{
-          display:true,
-          text: "Fecha y Hora"
-        }
-      },
-      y:{
-        title:{
-          display: true,
-          text: "Activada/Desactivada"
-        },
-        ticks:{
-          stepSize:1
-        }
-      }
+
+  ngOnInit() {
+    this.setDateTime();
+    this.validateSeconds();
+  }
+
+  setDateTime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const second = now.getSeconds();
+
+    this.startDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+    this.startTime = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute-1}`;
+    this.startTimeSeconds = second.toString();
+    this.endDate = this.startDate;
+    this.endTime = `${hour < 10 ? '0' + hour : hour}:${minute < 10 ? '0' + minute : minute}`;
+    this.endTimeSeconds = this.startTimeSeconds;
+  }
+
+  validateSeconds() {
+    const startS = this.startTimeSeconds;
+    const endS = this.endTimeSeconds;
+    if (parseInt(startS) < 10 && this.startTimeSeconds.toString().length < 2) {
+      this.startTimeSeconds = "0" + this.startTimeSeconds;
+    }
+    if (parseInt(startS) > 59) {
+      this.startTimeSeconds = "59";
+    }
+    if (parseInt(endS) < 10 && this.endTimeSeconds.toString().length < 2) {
+      this.endTimeSeconds = "0" + this.endTimeSeconds;
+    }
+    if (parseInt(endS) > 59) {
+      this.endTimeSeconds = "59";
     }
   }
 
+  getData(){
+    this.validateSeconds();
+    const start = new Date(`${this.startDate}T${this.startTime}:${this.startTimeSeconds.toString()}.000Z`).toISOString();
+    const end = new Date(`${this.endDate}T${this.endTime}:${this.endTimeSeconds.toString()}.000Z`).toISOString();
 
+    if(end <= start){
+      alert("La fecha final debe ser mayor que la fecha inicial")
+      return;
+    }
+
+    const body = {
+      fechainicial: start,
+      fechafinal: end
+    };
+    console.log(`Obteniendo gráficas ::: fecha inicial -> ${body.fechafinal} ::: fecha final -> ${body.fechafinal}`);
+
+    const url = 'http://54.183.38.85:3525/api/v1'
+
+    //GRAFICA TEMPERATURA EXTERNA
+    this.http.post(`${url}/datatemp1`, body)
+      .subscribe((response: any) => {
+        const objeto: ObjetoGraficas[] = [];
+        response.forEach((element:any) => {
+          const nuevoObjeto: ObjetoGraficas = {
+            timestamp: element.created,
+            datos: parseFloat(element.data)
+          };
+          objeto.push(nuevoObjeto);
+        });
+        this.lineChartData1 = this.generarData(objeto,"Temperatura Externa",'red','pink');
+        this.lineChartOptions1 = this.generarOptions("Fecha y hora","Temperatura °C")
+      });
+
+    // GRAFICA TEMPERATURA INTERNA
+    this.http.post(`${url}/datatemp2`, body)
+      .subscribe((response: any) => {
+        const objeto: ObjetoGraficas[] = [];
+        response.forEach((element:any) => {
+          const nuevoObjeto: ObjetoGraficas = {
+            timestamp: element.created,
+            datos: parseFloat(element.data)
+          };
+          objeto.push(nuevoObjeto);
+        });
+      this.lineChartData2 = this.generarData(objeto,"Temperatura Interna",'green','#a7f38d');
+      this.lineChartOptions2 = this.generarOptions("Fecha y hora","Temperatura °C")
+      });
+
+    //GRAFICA DE HUMEDAD DEL LA TIERRA
+    this.http.post(`${url}/datahum1`, body)
+      .subscribe((response: any) => {
+        const objeto: ObjetoGraficas[] = [];
+        response.forEach((element:any) => {
+          const nuevoObjeto: ObjetoGraficas = {
+            timestamp: element.created,
+            datos: parseFloat(element.data)
+          };
+          objeto.push(nuevoObjeto);
+        });
+        this.lineChartData3 =  this.generarData(objeto,"Humedad de la tierra",'brown','#da9180');
+        this.lineChartOptions3 = this.generarOptions("Fecha y hora","Humedad de la tierra")
+      });
+
+    //PORCENTAJE DE AGUA
+    this.http.post(`${url}/datadist1`, body)
+      .subscribe((response: any) => {
+        const objeto: ObjetoGraficas[] = [];
+        response.forEach((element:any) => {
+          const nuevoObjeto: ObjetoGraficas = {
+            timestamp: element.created,
+            datos: parseFloat(element.data)
+          };
+          objeto.push(nuevoObjeto);
+        });
+        this.lineChartData4 =  this.generarData(objeto,"Porcentaje de Agua",'blue','#87CEFA');
+        this.lineChartOptions4 = this.generarOptions("Fecha y hora","Porcentaje de agua %")
+      });
+
+    //ACTIVACION DE BOMBA
+
+    this.http.post(`http://54.183.38.85:3525/api/v1/databomba1`, body)
+      .subscribe((response: any) => {
+        const objeto: ObjetoGraficas[] = [];
+        response.forEach((element:any) => {
+          const nuevoObjeto: ObjetoGraficas = {
+            timestamp: element.created,
+            datos: parseFloat(element.data)
+          };
+          objeto.push(nuevoObjeto);
+        });
+
+        this.lineChartData5 =  {
+          labels: objeto.map((item) => item.timestamp),
+          datasets: [{
+            label: 'Activación de la bomba de agua',
+            data: objeto.map((item) => item.datos),
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: '#b8f1a5',
+            pointBackgroundColor: 'rgba(148,159,177,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+            fill: 'origin',
+            tension: 0.6
+          }]}
+
+        this.lineChartOptions5 = {
+          scales:{
+            x:{
+              title:{
+                display:true,
+                text: "Fecha y Hora"
+              }
+            },
+            y:{
+              title:{
+                display: true,
+                text: "Activada/Desactivada"
+              },
+              ticks:{
+                stepSize:1
+              }
+            }
+          }
+        }
+      },(error: any) => {
+        if(error.status === 404){
+          console.log("NOT FOUND, NO HAY DATA EN ESAS FECHAS PARA LA BOMBA")
+          const objeto: ObjetoGraficas[] = [];
+          this.lineChartData5 =  {
+            labels: objeto.map((item) => item.timestamp),
+            datasets: [{
+              label: 'Activación de la bomba de agua',
+              data: objeto.map((item) => item.datos),
+              borderColor: 'rgb(75, 192, 192)',
+              backgroundColor: '#b8f1a5',
+              pointBackgroundColor: 'rgba(148,159,177,1)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+              fill: 'origin',
+              tension: 0.6
+            }]}
+
+          this.lineChartOptions5 = {
+            scales:{
+              x:{
+                title:{
+                  display:true,
+                  text: "Fecha y Hora"
+                }
+              },
+              y:{
+                title:{
+                  display: true,
+                  text: "Activada/Desactivada"
+                },
+                ticks:{
+                  stepSize:1
+                }
+              }
+            }
+          }
+        }
+      });
+  }
 
   private generarData(data:{timestamp: string; datos: number}[],tituloY: string,borderColor:string,backgrounColor:string):ChartConfiguration['data']{
     return {
