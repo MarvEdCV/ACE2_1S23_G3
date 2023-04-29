@@ -184,7 +184,6 @@ void callback(char *topic, byte *message, unsigned int length)
 
         if (checksum > 0)
         {
-
             validar_spiffs_sensores = true;
         }
    

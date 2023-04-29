@@ -5,6 +5,7 @@ const cors = require("cors");
 
 var app = express();
 
+//variables
 require("dotenv").config({ path: "../.env" });
 
 console.log("======================================".red);

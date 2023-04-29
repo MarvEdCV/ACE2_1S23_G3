@@ -65,5 +65,4 @@ void loop()
 
   envia_sensores_mqtt();
   sensores_test();
-
 }

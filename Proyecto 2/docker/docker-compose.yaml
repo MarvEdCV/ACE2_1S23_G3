@@ -95,7 +95,7 @@ services:
       EMQX_AUTH__MYSQL__SERVER: "mariadb_host:3306" 
       #auth.mysql.username = emqx
       EMQX_AUTH__MYSQL__USERNAME: ${MARIADB_USER} 
-      #auth.mysql.password = public
+      #auth.mysql.password = publi
       EMQX_AUTH__MYSQL__PASSWORD: ${MARIADB_PASSWORD} 
       #auth.mysql.database = mqtt
       EMQX_AUTH__MYSQL__DATABASE: ${MARIADB_DATABASE} 
