@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnEncender"
+        android:layout_width="135dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="160dp"
+        android:text="@string/encender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:labelFor="@+id/etextnum1"
+        android:text="@string/desc_tiempo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etextnum1"
+        android:layout_width="92dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="50dp"
+        android:autofillHints="temperatura"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textAlignment="viewEnd"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.322"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEncender" />
+
+    <Button
+        android:id="@+id/btnEnviar"
+        android:layout_width="101dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/enviar"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/azul"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.725"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEncender" />
+
+    <ImageView
+        android:id="@+id/imgv2"
+        android:layout_width="128dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="52dp"
+        android:contentDescription="@string/desc_humedad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etextnum1"
+        app:srcCompat="@mipmap/humedad"
+        tools:srcCompat="@mipmap/humedad" />
+
+    <ImageView
+        android:id="@+id/imgv1"
+        android:layout_width="128dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="52dp"
+        android:contentDescription="@string/desc_temperatura"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etextnum1"
+        app:srcCompat="@mipmap/temperatura"
+        tools:srcCompat="@mipmap/temperatura" />
+
+    <TextView
+        android:id="@+id/txtView1"
+        android:layout_width="130dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/humedad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgv1" />
+
+    <TextView
+        android:id="@+id/txtView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/temperatura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgv2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

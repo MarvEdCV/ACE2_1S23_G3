@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ace2Proyecto2</string>
+    <string name="encender">Encender</string>
+    <string name="apagar">Apagar</string>
+    <string name="enviar">Enviar</string>
+    <string name="humedad">Humedad:</string>
+    <string name="temperatura">Temperatura:</string>
+
+    <string name="desc_humedad">Humedad</string>
+    <string name="desc_temperatura">Temperatura</string>
+    <string name="desc_tiempo">Tiempo</string>
+</resources>
