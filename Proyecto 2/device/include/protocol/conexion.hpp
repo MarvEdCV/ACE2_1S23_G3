@@ -22,13 +22,15 @@ void envia_sensores_mqtt()
 
             // {"device":"dispositivo-001", "name": "temp1", "data": 23}
 
-            char data[6];
+            // char data[6];
+            // sprintf(data, "%0.2f", temperatura1_read);
 
-            sprintf(data, "%0.2f", temperatura1_read);
+            char data1[10];
+            dtostrf(temperatura1_read, 5, 2, data1);
 
             doc_envia["device"] = vNombrePlaca;
             doc_envia["name"] = "temp1";
-            doc_envia["data"] = data;
+            doc_envia["data"] = data1;
 
             serializeJson(doc_envia, json_msg);
 
@@ -54,13 +56,15 @@ void envia_sensores_mqtt()
 
             // {"device":"dispositivo-001", "name": "temp2", "data": 23}
 
-            char data[6];
+            // char data[6];
+            // sprintf(data, "%0.2f", temperatura2_read);
 
-            sprintf(data, "%0.2f", temperatura2_read);
+            char data2[10];
+            dtostrf(temperatura2_read, 5, 2, data2);
 
             doc_envia["device"] = vNombrePlaca;
             doc_envia["name"] = "temp2";
-            doc_envia["data"] = data;
+            doc_envia["data"] = data2;
 
             serializeJson(doc_envia, json_msg);
 
@@ -140,11 +144,14 @@ void envia_sensores_mqtt()
             DynamicJsonDocument doc_envia(1023);
             String json_msg;
 
-            char temp1[6];
-            char temp2[6];
+            char temp1[10];
+            char temp2[10];
 
-            sprintf(temp1, "%0.2f", temperatura1_read);
-            sprintf(temp2, "%0.2f", temperatura2_read);
+            // sprintf(temp1, "%0.2f", temperatura1_read);
+            // sprintf(temp2, "%0.2f", temperatura2_read);
+
+            dtostrf(temperatura1_read, 5, 2, temp1);
+            dtostrf(temperatura2_read, 5, 2, temp2);
 
             // {"device":"dispositivo-001", "name": "dist1", "data": 23}
 

@@ -116,6 +116,9 @@ String deviceID()
 void sensores_test()
 {
 
+    if (WiFi.status() != WL_CONNECTED)
+        return;
+
     if (millis() > time_sensor_test + 1000)
     {
 

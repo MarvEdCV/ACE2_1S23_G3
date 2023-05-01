@@ -4,7 +4,6 @@
 #include "variables/variable.hpp"
 #include "utilidades/utilidad.h"
 #include "storage/settings.hpp"
-#include "funciones.hpp"
 
 #include "devices/select_device_onewire.hpp"
 #include "devices/select_device_ultrasonico.hpp"
@@ -13,6 +12,7 @@
 
 #include "protocol/conexion.hpp"
 #include "json/select_com_json.hpp"
+#include "funciones.hpp"
 #include "task.hpp"
 
 /*

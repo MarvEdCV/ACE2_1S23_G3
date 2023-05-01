@@ -1,33 +1,19 @@
-/* platformio.ini
-lib_deps =
-  milesburton/DallasTemperature@^3.9.1
-  paulstoffregen/OneWire@^2.3.5
-*/
 
-// First we include the libraries
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
 // #define ONE_WIRE_BUS 23
 
 long contador_mediciones_sensor;
-/********************************************************************/
-// Data wire is plugged into pin 23 on the Arduino
 
-/********************************************************************/
-// Setup a oneWire instance to communicate with any OneWire devices
-// (not just Maxim/Dallas temperature ICs)
 OneWire oneWire(ONE_WIRE_BUS);
-/********************************************************************/
-// Pass our oneWire reference to Dallas Temperature.
 DallasTemperature sensors(&oneWire);
-/********************************************************************/
-DeviceAddress tempDeviceAddress; // We'll use this variable to store a found device address
+DeviceAddress tempDeviceAddress;
 
 void begin_ds18b20()
 {
-
-  sensors.begin(); // initialize the DS18B20 sensor
+  // initialize the DS18B20 sensor
+  sensors.begin();
 }
 
 void begin_sensor()
@@ -66,7 +52,7 @@ float readDSTemperatureC(uint8_t index)
 void read_sensores_temperatura()
 {
 
-  if (millis() > time_temperatura + 100)
+  if (millis() > time_temperatura + 500)
   {
 
     sensors.requestTemperaturesByIndex(0);
@@ -84,7 +70,7 @@ void read_sensores_temperatura()
       // Serial.println("Sensor 1 - No se pudo leer la temperatura");
     }
 
-    delay(10);
+    delay(50);
 
     sensors.requestTemperaturesByIndex(1);
     float temperatura2 = sensors.getTempCByIndex(1);
